@@ -1,8 +1,7 @@
 ﻿using CoinInMyPocket.Core.Domain;
 using CoinInMyPocket.Core.Repositories;
-using CoinInMyPocket.Infrastructure.Exceptions;
 using CoinInMyPocket.Infrastructure.Exceptions.ErrorMessages;
-using System;
+using CoinInMyPocket.Infrastructure.Validation;
 using System.Threading.Tasks;
 
 namespace CoinInMyPocket.Infrastructure.Services.Implementations
@@ -22,17 +21,13 @@ namespace CoinInMyPocket.Infrastructure.Services.Implementations
 
         public async Task LoginAsync(string email, string password)
         {
-            var user = await _usersRepository.GetUserAsync(email);
+            var user = await _usersRepository
+                .GetUserAsync(email)
+                .ThrowIfNullAsync(ErrorType.NotFound, UsersErrorCodes.InvalidCredentials);
 
-            if (user is null)
-            {
-                throw new ServiceException(ErrorType.NotFound, UsersErrorCodes.InvalidCredentials);
-            }
-
-            if (!_passwordHasher.VerifyPassword(user.HashedPassword, password))
-            {
-                throw new ServiceException(ErrorType.NotFound, UsersErrorCodes.InvalidCredentials);
-            }
+            _passwordHasher
+                .VerifyPassword(user.HashedPassword, password)
+                .ThrowIfFalse(ErrorType.NotFound, UsersErrorCodes.InvalidCredentials);
         }
     }
 }

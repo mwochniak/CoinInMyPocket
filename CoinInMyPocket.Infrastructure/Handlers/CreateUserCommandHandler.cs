@@ -1,6 +1,9 @@
-﻿using CoinInMyPocket.Infrastructure.Contracts.Commands;
+﻿using CoinInMyPocket.Core.Domain;
+using CoinInMyPocket.Infrastructure.Contracts.Commands;
 using CoinInMyPocket.Infrastructure.Services;
+using CoinInMyPocket.Infrastructure.Validation;
 using System.Threading.Tasks;
+using Valit;
 
 namespace CoinInMyPocket.Infrastructure.Handlers
 {
@@ -18,11 +21,30 @@ namespace CoinInMyPocket.Infrastructure.Handlers
         }
 
         public async Task HandleCommandAsync(CreateUserCommand command)
-            => await _usersService.CreateUserAsync(
+        {
+            ValidateModel(command);
+            await _usersService.CreateUserAsync(
                 command.Id,
                 command.Email,
                 command.FirstName,
                 command.LastName,
                 _passwordHasher.HashPassword(command.Password));
+        }
+
+        private void ValidateModel(CreateUserCommand command)
+        {
+            var result = ValitRules<CreateUserCommand>
+                .Create()
+                .Ensure(c => c.Email, _ => _
+                    .Required()
+                    .Email())
+                .Ensure(c => c.Password, _ => _
+                    .Required()
+                    .MinLength(8))
+                .For(command)
+                .Validate();
+
+            result.Succeeded.ThrowIfFalse(ErrorType.BadRequest, string.Join(" ", result.ErrorMessages));
+        }
     }
 }

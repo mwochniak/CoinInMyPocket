@@ -1,6 +1,6 @@
 ﻿using CoinInMyPocket.Core.Domain;
-using CoinInMyPocket.Infrastructure.Exceptions;
 using CoinInMyPocket.Infrastructure.Exceptions.ErrorMessages;
+using CoinInMyPocket.Infrastructure.Validation;
 using ePrzedszkole.Common.Auth.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -31,12 +31,8 @@ namespace CoinInMyPocket.Infrastructure.Authentication.Attributes
                     return;
                 }
 
-                var user = AuthUser.Parse(context.HttpContext.User.Identity as ClaimsIdentity);
-
-                if (user == null)
-                {
-                    throw new ServiceException(ErrorType.Forbidden, AuthenticationErrorCodes.UserIsNotLoggedIn);
-                }
+                var user = AuthUser.Parse(context.HttpContext.User.Identity as ClaimsIdentity)
+                    .ThrowIfNull(ErrorType.Forbidden, AuthenticationErrorCodes.UserIsNotLoggedIn);
 
                 await next();
             }
