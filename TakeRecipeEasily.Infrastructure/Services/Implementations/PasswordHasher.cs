@@ -1,13 +1,11 @@
-﻿using CryptoHelper;
-
-namespace TakeRecipeEasily.Infrastructure.Services.Implementations
+﻿namespace TakeRecipeEasily.Infrastructure.Services.Implementations
 {
     public class PasswordHasher : IPasswordHasher
     {
         public string HashPassword(string password)
-            => Crypto.HashPassword(password);
+            => BCrypt.Net.BCrypt.HashPassword(password);
 
         public bool VerifyPassword(string hashedPassword, string password)
-            => Crypto.VerifyHashedPassword(hashedPassword, password);
+            => BCrypt.Net.BCrypt.Verify(password, hashedPassword);
     }
 }

@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace TakeRecipeEasily.Core.Domain
 {
-    public class User : Entity
+    public sealed class User : Entity
     {
-        protected User(
+        private User(
             Guid id,
             string email,
             string firstName,
@@ -20,10 +18,10 @@ namespace TakeRecipeEasily.Core.Domain
             HashedPassword = hashedPassword;
         }
 
-        public string FirstName { get; protected set; }
-        public string LastName { get; protected set; }
-        public string Email { get; protected set; }
-        public string HashedPassword { get; protected set; }
+        public string FirstName { get; }
+        public string LastName { get; }
+        public string Email { get; }
+        public string HashedPassword { get; }
 
         public static User Create(Guid id, string email, string firstName, string lastName, string password)
             => new User(id, email, firstName, lastName, password);

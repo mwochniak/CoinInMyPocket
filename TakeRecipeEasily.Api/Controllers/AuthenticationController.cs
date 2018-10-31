@@ -5,6 +5,7 @@ using TakeRecipeEasily.Infrastructure.Contracts.QueryModels;
 using TakeRecipeEasily.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TakeRecipeEasily.Api.Controllers
 {
@@ -25,6 +26,7 @@ namespace TakeRecipeEasily.Api.Controllers
             _usersService = usersService;
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> LoginAsync([FromBody] LoginCommand command)
         {

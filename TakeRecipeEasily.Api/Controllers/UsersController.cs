@@ -22,7 +22,7 @@ namespace TakeRecipeEasily.Api.Controllers
             _usersService = usersService;
         }
 
-        
+        [Authorized]
         [HttpGet("{email}")]
         public async Task<IActionResult> GetUserAsync(string email)
         {
