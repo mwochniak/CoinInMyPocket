@@ -10,17 +10,21 @@ namespace TakeRecipeEasily.Infrastructure.Handlers
     public class LoginCommandHandler : ICommandHandler<LoginCommand>
     {
         private readonly IAuthenticationService _authenticationService;
+        private readonly IHandler _handler;
 
-        public LoginCommandHandler(IAuthenticationService authenticationService)
+        public LoginCommandHandler(
+            IAuthenticationService authenticationService,
+            IHandler handler)
         {
             _authenticationService = authenticationService;
+            _handler = handler;
         }
 
         public async Task HandleCommandAsync(LoginCommand command)
-        {
-            ValidateModel(command);
-            await _authenticationService.LoginAsync(command.Email, command.Password);
-        }
+            => await _handler
+                .Validate(() => ValidateModel(command))
+                .Handle(async () => await _authenticationService.LoginAsync(command.Email, command.Password))
+                .ExecuteAsync();
 
         private void ValidateModel(LoginCommand command)
         {

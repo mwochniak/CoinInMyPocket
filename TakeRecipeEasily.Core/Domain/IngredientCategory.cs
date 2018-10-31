@@ -4,7 +4,7 @@ namespace TakeRecipeEasily.Core.Domain
 {
     public sealed class IngredientCategory : Entity
     {
-        public string Name { get; }
+        public string Name { get; private set; }
 
         private IngredientCategory(Guid id, string name)
         {

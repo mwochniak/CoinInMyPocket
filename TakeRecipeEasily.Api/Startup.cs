@@ -53,6 +53,7 @@ namespace TakeRecipeEasily.Api
                     builder.RegisterService<UsersService, IUsersService>();
 
                     builder.RegisterType<HmacJwtService>().As<IJwtService>();
+                    builder.RegisterType<Handler>().As<IHandler>();
                 })
                 .RespondToCommand<CreateUserCommand, CreateUserCommandHandler>()
                 .RespondToCommand<LoginCommand, LoginCommandHandler>()
