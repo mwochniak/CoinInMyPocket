@@ -1,4 +1,4 @@
-﻿namespace TakeRecipeEasily.Infrastructure.Contracts.Commands
+﻿namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.Auth
 {
     public class LoginCommand : ICommand
     {

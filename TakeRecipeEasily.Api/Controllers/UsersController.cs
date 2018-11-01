@@ -1,10 +1,9 @@
-﻿using TakeRecipeEasily.Infrastructure.Authentication.Attributes;
-using TakeRecipeEasily.Infrastructure.Busses;
-using TakeRecipeEasily.Infrastructure.Contracts.Commands;
-using TakeRecipeEasily.Infrastructure.Services;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using TakeRecipeEasily.Infrastructure.Authentication.Attributes;
+using TakeRecipeEasily.Infrastructure.Busses;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.Users;
+using TakeRecipeEasily.Infrastructure.Services;
 
 namespace TakeRecipeEasily.Api.Controllers
 {

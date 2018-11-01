@@ -1,11 +1,9 @@
-﻿using TakeRecipeEasily.Core.Domain;
-using TakeRecipeEasily.Infrastructure.Contracts.Commands;
+﻿using System.Threading.Tasks;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.Users;
 using TakeRecipeEasily.Infrastructure.Services;
-using TakeRecipeEasily.Infrastructure.Validation;
-using System.Threading.Tasks;
-using Valit;
+using TakeRecipeEasily.Infrastructure.Validation.CommandModelsValidation;
 
-namespace TakeRecipeEasily.Infrastructure.Handlers
+namespace TakeRecipeEasily.Infrastructure.Handlers.Users
 {
     public class CreateUserCommandHandler : ICommandHandler<CreateUserCommand>
     {
@@ -25,7 +23,7 @@ namespace TakeRecipeEasily.Infrastructure.Handlers
 
         public async Task HandleCommandAsync(CreateUserCommand command)
             => await _handler
-                .Validate(() => ValidateModel(command))
+                .Validate(() => UsersCommandModelsValidation.CreateUserCommandValidation(command))
                 .Handle(async () => await _usersService.CreateUserAsync(
                     command.Id,
                     command.Email,
@@ -33,21 +31,5 @@ namespace TakeRecipeEasily.Infrastructure.Handlers
                     command.LastName,
                     _passwordHasher.HashPassword(command.Password)))
                 .ExecuteAsync();
-
-        private void ValidateModel(CreateUserCommand command)
-        {
-            var result = ValitRules<CreateUserCommand>
-                .Create()
-                .Ensure(c => c.Email, _ => _
-                    .Required()
-                    .Email())
-                .Ensure(c => c.Password, _ => _
-                    .Required()
-                    .MinLength(8))
-                .For(command)
-                .Validate();
-
-            result.Succeeded.ThrowIfFalse(ErrorType.BadRequest, string.Join(" ", result.ErrorMessages));
-        }
     }
 }

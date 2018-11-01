@@ -1,11 +1,11 @@
-﻿using TakeRecipeEasily.Core.Domain;
+﻿using System;
+using System.Threading.Tasks;
+using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Core.Repositories;
-using TakeRecipeEasily.Infrastructure.Contracts.Extensions;
-using TakeRecipeEasily.Infrastructure.Contracts.QueryModels;
+using TakeRecipeEasily.Infrastructure.Contracts.Extensions.Users;
+using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Users;
 using TakeRecipeEasily.Infrastructure.Exceptions.ErrorMessages;
 using TakeRecipeEasily.Infrastructure.Validation;
-using System;
-using System.Threading.Tasks;
 
 namespace TakeRecipeEasily.Infrastructure.Services.Implementations
 {

@@ -1,11 +1,11 @@
-﻿using TakeRecipeEasily.Infrastructure.Authentication.Models;
-using TakeRecipeEasily.Infrastructure.Busses;
-using TakeRecipeEasily.Infrastructure.Contracts.Commands;
-using TakeRecipeEasily.Infrastructure.Contracts.QueryModels;
-using TakeRecipeEasily.Infrastructure.Services;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+using TakeRecipeEasily.Infrastructure.Authentication.Models;
+using TakeRecipeEasily.Infrastructure.Busses;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.Auth;
+using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Users;
+using TakeRecipeEasily.Infrastructure.Services;
 
 namespace TakeRecipeEasily.Api.Controllers
 {

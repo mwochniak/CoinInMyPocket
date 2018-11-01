@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TakeRecipeEasily.Infrastructure.Contracts.Commands
+namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.Users
 {
     public class CreateUserCommand : ICommand
     {

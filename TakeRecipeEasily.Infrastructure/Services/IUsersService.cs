@@ -1,6 +1,6 @@
-﻿using TakeRecipeEasily.Infrastructure.Contracts.QueryModels;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Users;
 
 namespace TakeRecipeEasily.Infrastructure.Services
 {

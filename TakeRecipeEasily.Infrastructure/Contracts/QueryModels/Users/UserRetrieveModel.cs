@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TakeRecipeEasily.Infrastructure.Contracts.QueryModels
+namespace TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Users
 {
     public class UserRetrieveModel
     {

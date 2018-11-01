@@ -5,7 +5,6 @@ using TakeRecipeEasily.Infrastructure.Authentication.Middleware;
 using TakeRecipeEasily.Infrastructure.Builders.Implementations;
 using TakeRecipeEasily.Infrastructure.Handlers;
 using TakeRecipeEasily.Infrastructure.IoC;
-using TakeRecipeEasily.Infrastructure.Contracts.Commands;
 using TakeRecipeEasily.Infrastructure.Repositories;
 using TakeRecipeEasily.Infrastructure.Services;
 using TakeRecipeEasily.Infrastructure.Services.Implementations;
@@ -18,6 +17,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using TakeRecipeEasily.Infrastructure.Exceptions;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.Users;
+using TakeRecipeEasily.Infrastructure.Handlers.Users;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.Auth;
+using TakeRecipeEasily.Infrastructure.Handlers.Auth;
 
 namespace TakeRecipeEasily.Api
 {

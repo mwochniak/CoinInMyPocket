@@ -1,8 +1,8 @@
-﻿using TakeRecipeEasily.Core.Domain;
-using TakeRecipeEasily.Infrastructure.Contracts.QueryModels;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using TakeRecipeEasily.Core.Domain;
+using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Users;
 
-namespace TakeRecipeEasily.Infrastructure.Contracts.Extensions
+namespace TakeRecipeEasily.Infrastructure.Contracts.Extensions.Users
 {
     public static class UserMapping
     {
