@@ -21,6 +21,8 @@ using TakeRecipeEasily.Infrastructure.Contracts.Commands.Users;
 using TakeRecipeEasily.Infrastructure.Handlers.Users;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Auth;
 using TakeRecipeEasily.Infrastructure.Handlers.Auth;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.IngredientsCategories;
+using TakeRecipeEasily.Infrastructure.Handlers.IngredientsCategories;
 
 namespace TakeRecipeEasily.Api
 {
@@ -49,15 +51,18 @@ namespace TakeRecipeEasily.Api
                     builder.RegisterInstance(Configuration.GetSettings<AuthSettings>());
                     builder.RegisterInstance(sqlSettings);
 
+                    builder.RegisterRepository<IngredientsCategoriesRepository, IIngredientsCategoriesRepository>();
                     builder.RegisterRepository<UsersRepository, IUsersRepository>();
 
                     builder.RegisterService<AuthenticationService, IAuthenticationService>();
+                    builder.RegisterService<IngredientsCategoriesService, IIngredientsCategoriesService>();
                     builder.RegisterService<PasswordHasher, IPasswordHasher>();
                     builder.RegisterService<UsersService, IUsersService>();
 
                     builder.RegisterType<HmacJwtService>().As<IJwtService>();
                     builder.RegisterType<Handler>().As<IHandler>();
                 })
+                .RespondToCommand<CreateIngredientCategoryCommand, CreateIngredientCategoryCommandHandler>()
                 .RespondToCommand<CreateUserCommand, CreateUserCommandHandler>()
                 .RespondToCommand<LoginCommand, LoginCommandHandler>()
                 .WithCommandsBus()

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using NodaTime;
 
 namespace TakeRecipeEasily.Infrastructure.Authentication.Middleware
 {
@@ -43,7 +44,7 @@ namespace TakeRecipeEasily.Infrastructure.Authentication.Middleware
                     throw new ServiceException(ErrorType.Unauthorized, AuthenticationErrorCodes.TokenIsNotValid);
                 }
 
-                if (payload.Exp < DateTime.UtcNow)
+                if (payload.Exp < DateTime.Now)
                 {
                     throw new ServiceException(ErrorType.Unauthorized, AuthenticationErrorCodes.TokenExpired);
                 }

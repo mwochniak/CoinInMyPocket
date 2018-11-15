@@ -3,19 +3,20 @@ using System.Collections.Generic;
 
 namespace TakeRecipeEasily.Core.Domain
 {
-    public class IngredientCategory : Entity
+    public class Ingredient : Entity
     {
         public string Name { get; private set; }
 
         public virtual ICollection<IngredientCategoryIngredient> IngredientCategoriesIngredients { get; private set; }
+        public virtual ICollection<RecipeIngredient> RecipesIngredients { get; private set; }
 
-        private IngredientCategory(Guid id, string name)
+        private Ingredient(Guid id, string name)
         {
             Id = id;
             Name = name;
         }
 
-        public static IngredientCategory Create(Guid id, string name)
-            => new IngredientCategory(id, name);
+        public static Ingredient Create(Guid id, string name)
+            => new Ingredient(id, name);
     }
 }

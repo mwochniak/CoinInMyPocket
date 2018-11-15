@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TakeRecipeEasily.Infrastructure.SQL;
 
 namespace TakeRecipeEasily.Infrastructure.Migrations
 {
     [DbContext(typeof(TakeRecipeEasilyContext))]
-    partial class CoinInMyPocketContextModelSnapshot : ModelSnapshot
+    [Migration("20181115214509_domain_relationships")]
+    partial class domain_relationships
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
