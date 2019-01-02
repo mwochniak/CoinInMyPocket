@@ -10,7 +10,7 @@ namespace TakeRecipeEasily.Infrastructure.SQL
         public DbSet<IngredientCategoryIngredient> IngredientCategoriesIngredients { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<RecipeIngredient> RecipesIngredients { get; set; }
-        public DbSet<RecipeRating> RecipesRating { get; set; }
+        public DbSet<RecipeRating> RecipesRatings { get; set; }
         public DbSet<User> Users { get; set; }
 
         public TakeRecipeEasilyContext(

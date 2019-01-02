@@ -7,10 +7,10 @@ namespace TakeRecipeEasily.Core.Repositories
 {
     public interface IIngredientsCategoriesRepository : IRepositorable
     {
-        Task AddAsync(IngredientCategory ingredientCategory);
+        Task CreateAsync(IngredientCategory ingredientCategory);
 
         Task<bool> IsNameInUse(string name);
 
-        Task<IngredientCategory> GetIngredientCategoryAsync(Guid id);
+        Task<IngredientCategory> GetAsync(Guid id);
     }
 }

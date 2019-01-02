@@ -1,4 +1,4 @@
-﻿namespace TakeRecipeEasily.Infrastructure.Settings
+﻿namespace TakeRecipeEasily.Infrastructure.SQL
 {
     public class SQLSettings
     {

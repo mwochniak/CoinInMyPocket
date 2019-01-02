@@ -23,6 +23,7 @@ using TakeRecipeEasily.Infrastructure.Contracts.Commands.Auth;
 using TakeRecipeEasily.Infrastructure.Handlers.Auth;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.IngredientsCategories;
 using TakeRecipeEasily.Infrastructure.Handlers.IngredientsCategories;
+using TakeRecipeEasily.Infrastructure.Authentication.Settings;
 
 namespace TakeRecipeEasily.Api
 {

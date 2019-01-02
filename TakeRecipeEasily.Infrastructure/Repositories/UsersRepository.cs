@@ -16,7 +16,7 @@ namespace TakeRecipeEasily.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(User user)
+        public async Task CreateAsync(User user)
         {
             await _context.AddAsync(user);
             await _context.SaveChangesAsync();
@@ -25,10 +25,10 @@ namespace TakeRecipeEasily.Infrastructure.Repositories
         public async Task<bool> IsEmailInUse(string email)
             => await _context.Users.AnyAsync(u => u.Email == email);
 
-        public async Task<User> GetUserAsync(Guid userId)
+        public async Task<User> GetAsync(Guid userId)
             => await _context.Users.SingleOrDefaultAsync(u => u.Id == userId);
 
-        public async Task<User> GetUserAsync(string email)
+        public async Task<User> GetAsync(string email)
             => await _context.Users.SingleOrDefaultAsync(u => u.Email == email);
     }
 }

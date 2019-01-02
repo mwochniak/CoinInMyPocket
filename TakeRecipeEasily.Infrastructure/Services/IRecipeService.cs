@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TakeRecipeEasily.Core.Repositories
+namespace TakeRecipeEasily.Infrastructure.Services
 {
-    interface IIngredientRepository
+    class IRecipeService
     {
     }
 }

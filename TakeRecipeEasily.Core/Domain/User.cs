@@ -5,12 +5,12 @@ namespace TakeRecipeEasily.Core.Domain
 {
     public class User : Entity
     {
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string Email { get; private set; }
-        public string HashedPassword { get; private set; }
+        public string FirstName { get; }
+        public string LastName { get; }
+        public string Email { get; }
+        public string HashedPassword { get; }
 
-        public virtual ICollection<Recipe> Recipes { get; private set; }
+        public virtual ICollection<Recipe> Recipes { get; }
 
         private User(
             Guid id,

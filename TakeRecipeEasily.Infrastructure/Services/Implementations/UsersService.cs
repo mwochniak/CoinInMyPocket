@@ -23,18 +23,18 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
             await _usersRepository.IsEmailInUse(email).ThrowIfTrueAsync(ErrorType.Conflict, UsersErrorCodes.EmailIsInUse);
 
             var user = User.Create(id, email, firstName, lastName, hashedPassword);
-            await _usersRepository.AddAsync(user);
+            await _usersRepository.CreateAsync(user);
         }
 
         public async Task<UserRetrieveModel> GetUserAsync(Guid id)
             => await _usersRepository
-                .GetUserAsync(id)
+                .GetAsync(id)
                 .ThrowIfNullAsync(ErrorType.NotFound, UsersErrorCodes.UserDoesNotExists)
                 .AsModel();
 
         public async Task<UserRetrieveModel> GetUserAsync(string email)
             => await _usersRepository
-                .GetUserAsync(email)
+                .GetAsync(email)
                 .ThrowIfNullAsync(ErrorType.NotFound, UsersErrorCodes.UserDoesNotExists)
                 .AsModel();
     }

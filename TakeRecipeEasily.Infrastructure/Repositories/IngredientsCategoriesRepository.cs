@@ -16,7 +16,7 @@ namespace TakeRecipeEasily.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task AddAsync(IngredientCategory ingredientCategory)
+        public async Task CreateAsync(IngredientCategory ingredientCategory)
         {
             await _context.AddAsync(ingredientCategory);
             await _context.SaveChangesAsync();
@@ -25,7 +25,7 @@ namespace TakeRecipeEasily.Infrastructure.Repositories
         public async Task<bool> IsNameInUse(string name)
             => await _context.IngredientsCategories.AnyAsync(i => i.Name == name);
 
-        public async Task<IngredientCategory> GetIngredientCategoryAsync(Guid id)
+        public async Task<IngredientCategory> GetAsync(Guid id)
             => await _context.IngredientsCategories.SingleOrDefaultAsync(i => i.Id == id);
     }
 }

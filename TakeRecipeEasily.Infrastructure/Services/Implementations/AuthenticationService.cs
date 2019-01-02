@@ -22,7 +22,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
         public async Task LoginAsync(string email, string password)
         {
             var user = await _usersRepository
-                .GetUserAsync(email)
+                .GetAsync(email)
                 .ThrowIfNullAsync(ErrorType.NotFound, UsersErrorCodes.InvalidCredentials);
 
             _passwordHasher

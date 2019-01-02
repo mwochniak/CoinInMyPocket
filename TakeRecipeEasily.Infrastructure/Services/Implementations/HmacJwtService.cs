@@ -1,7 +1,6 @@
-﻿using TakeRecipeEasily.Infrastructure.Authentication.Models;
-using TakeRecipeEasily.Infrastructure.Settings;
-using Microsoft.Extensions.Options;
-using System;
+﻿using System;
+using TakeRecipeEasily.Infrastructure.Authentication.Models;
+using TakeRecipeEasily.Infrastructure.Authentication.Settings;
 
 namespace TakeRecipeEasily.Infrastructure.Services.Implementations
 {

@@ -7,11 +7,11 @@ namespace TakeRecipeEasily.Core.Repositories
 {
     public interface IUsersRepository : IRepositorable
     {
-        Task AddAsync(User user);
+        Task CreateAsync(User user);
 
         Task<bool> IsEmailInUse(string email);
 
-        Task<User> GetUserAsync(Guid userId);
-        Task<User> GetUserAsync(string email);
+        Task<User> GetAsync(Guid userId);
+        Task<User> GetAsync(string email);
     }
 }

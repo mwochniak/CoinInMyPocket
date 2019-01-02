@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TakeRecipeEasily.Infrastructure.Settings
+namespace TakeRecipeEasily.Infrastructure.Authentication.Settings
 {
     public class AuthSettings
     {
