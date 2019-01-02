@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.IngredientsCategories;
 using TakeRecipeEasily.Infrastructure.Services;
 using TakeRecipeEasily.Infrastructure.Validation.CommandModelsValidation;
@@ -21,9 +22,7 @@ namespace TakeRecipeEasily.Infrastructure.Handlers.IngredientsCategories
         public async Task HandleCommandAsync(CreateIngredientCategoryCommand command)
             => await _handler
                 .Validate(() => IngredientsCategoriesCommandModelsValidation.CreateIngredientCategoryCommandValidation(command))
-                .Handle(async () => await _ingredientsCategoriesService.CreateIngredientCategoryAsync(
-                    command.Id,
-                    command.Name))
+                .Handle(async () => await _ingredientsCategoriesService.CreateIngredientCategoryAsync(IngredientCategory.Create(command.Id, command.Name)))
                 .ExecuteAsync();
     }
 }

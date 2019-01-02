@@ -18,11 +18,9 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
             _usersRepository = usersRepository;
         }
 
-        public async Task CreateUserAsync(Guid id, string email, string firstName, string lastName, string hashedPassword)
+        public async Task CreateUserAsync(User user)
         {
-            await _usersRepository.IsEmailInUse(email).ThrowIfTrueAsync(ErrorType.Conflict, UsersErrorCodes.EmailIsInUse);
-
-            var user = User.Create(id, email, firstName, lastName, hashedPassword);
+            await _usersRepository.IsEmailInUse(user.Email).ThrowIfTrueAsync(ErrorType.Conflict, UsersErrorCodes.EmailIsInUse);
             await _usersRepository.CreateAsync(user);
         }
 

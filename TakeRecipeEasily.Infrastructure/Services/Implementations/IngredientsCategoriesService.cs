@@ -18,11 +18,9 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
             _ingredientCategoryRepository = ingredientCategoryRepository;
         }
 
-        public async Task CreateIngredientCategoryAsync(Guid id, string name)
+        public async Task CreateIngredientCategoryAsync(IngredientCategory ingredientCategory)
         {
-            await _ingredientCategoryRepository.IsNameInUse(name).ThrowIfTrueAsync(ErrorType.Conflict, IngredientsCategoriesErrorCodes.IngredientCategoryNameIsInUse);
-
-            var ingredientCategory = IngredientCategory.Create(id, name);
+            await _ingredientCategoryRepository.IsNameInUse(ingredientCategory.Name).ThrowIfTrueAsync(ErrorType.Conflict, IngredientsCategoriesErrorCodes.IngredientCategoryNameIsInUse);
             await _ingredientCategoryRepository.CreateAsync(ingredientCategory);
         }
 
