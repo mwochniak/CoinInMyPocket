@@ -6,11 +6,16 @@ namespace TakeRecipeEasily.Core.UpdateModels.Ingredients
     {
         public Guid Id { get; }
         public string Name { get; }
+        public Guid IngredientCategoryId { get; }
 
-        public IngredientUpdateModel(Guid id, string name)
+        private IngredientUpdateModel(Guid id, string name, Guid ingredientCategoryId)
         {
             Id = id;
             Name = name;
+            IngredientCategoryId = ingredientCategoryId;
         }
+
+        public static IngredientUpdateModel Create(Guid ingredientId, string name, Guid ingredientCategoryId)
+            => new IngredientUpdateModel(ingredientId, name, ingredientCategoryId);
     }
 }

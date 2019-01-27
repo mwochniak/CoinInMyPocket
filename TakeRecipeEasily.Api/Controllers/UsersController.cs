@@ -7,6 +7,7 @@ using TakeRecipeEasily.Infrastructure.Services;
 
 namespace TakeRecipeEasily.Api.Controllers
 {
+    [Authorized]
     [Route("api/v1/users")]
     public class UsersController : Controller
     {
@@ -21,7 +22,6 @@ namespace TakeRecipeEasily.Api.Controllers
             _usersService = usersService;
         }
 
-        [Authorized]
         [HttpGet("{email}")]
         public async Task<IActionResult> GetUserAsync(string email)
         {
@@ -29,7 +29,6 @@ namespace TakeRecipeEasily.Api.Controllers
             return Ok(user);
         }
 
-        [Authorized]
         [HttpPost("")]
         public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserCommand command)
         {

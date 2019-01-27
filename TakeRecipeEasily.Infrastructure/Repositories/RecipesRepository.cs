@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Core.Repositories;
+using TakeRecipeEasily.Core.UpdateModels.Recipes;
 using TakeRecipeEasily.Infrastructure.SQL;
 
 namespace TakeRecipeEasily.Infrastructure.Repositories
@@ -22,14 +23,17 @@ namespace TakeRecipeEasily.Infrastructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Recipe recipe)
+        public async Task UpdateAsync(RecipeUpdateModel recipeUpdateModel)
         {
-            _context.Recipes.Update(recipe);
+            var recipe = await GetAsync(recipeUpdateModel.Id);
+            recipe.Update(recipeUpdateModel.Name, recipeUpdateModel.Description);
+            _context.Update(recipe);
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Recipe recipe)
+        public async Task DeleteAsync(Guid id)
         {
+            var recipe = await GetAsync(id);
             _context.Recipes.Remove(recipe);
             await _context.SaveChangesAsync();
         }

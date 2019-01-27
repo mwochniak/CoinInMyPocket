@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Core.Repositories;
@@ -27,5 +28,8 @@ namespace TakeRecipeEasily.Infrastructure.Repositories
 
         public async Task<IngredientCategory> GetAsync(Guid id)
             => await _context.IngredientsCategories.SingleOrDefaultAsync(i => i.Id == id);
+
+        public async Task<IEnumerable<IngredientCategory>> GetAsync()
+            => await _context.IngredientsCategories.ToListAsync();
     }
 }

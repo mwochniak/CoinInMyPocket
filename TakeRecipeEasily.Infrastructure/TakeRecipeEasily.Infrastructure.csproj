@@ -24,13 +24,4 @@
     <ProjectReference Include="..\TakeRecipeEasily.Core\TakeRecipeEasily.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Contracts\Commands\Ingredients\" />
-    <Folder Include="Contracts\Commands\Recipes\" />
-    <Folder Include="Contracts\Extensions\Ingredients\" />
-    <Folder Include="Contracts\Extensions\Recipes\" />
-    <Folder Include="Contracts\QueryModels\Ingredients\" />
-    <Folder Include="Contracts\QueryModels\Recipes\" />
-  </ItemGroup>
-
 </Project>

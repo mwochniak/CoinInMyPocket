@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Core.Repositories;
@@ -29,5 +30,10 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 .GetAsync(id)
                 .ThrowIfNullAsync(ErrorType.NotFound, IngredientsCategoriesErrorCodes.IngredientCategoryDoesNotExists)
                 .AsModel();
+
+        public async Task<IEnumerable<IngredientCategoryRetrieveModel>> GetIngredientCategoriesAsync()
+            => await _ingredientCategoryRepository
+                .GetAsync()
+                .AsModels();
     }
 }

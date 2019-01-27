@@ -10,6 +10,7 @@ using TakeRecipeEasily.Infrastructure.Services;
 
 namespace TakeRecipeEasily.Api.Controllers
 {
+    [Authorized]
     [Route("api/v1/ingredientsCategories")]
     public class IngredientsCategoriesController : Controller
     {
@@ -22,12 +23,15 @@ namespace TakeRecipeEasily.Api.Controllers
             _ingredientCategoryService = ingredientCategoryService;
         }
 
-        [Authorized]
         [HttpPost("")]
         public async Task<IActionResult> CreateIngredientCategoryAsync([FromBody] CreateIngredientCategoryCommand command)
         {
             await _commandsBus.SendCommandAsync(command);
             return Ok(await _ingredientCategoryService.GetIngredientCategoryAsync(command.Id));
         }
+
+        [HttpGet("")]
+        public async Task<IActionResult> GetIngredientCategoriesAsync()
+            => Ok(await _ingredientCategoryService.GetIngredientCategoriesAsync());
     }
 }

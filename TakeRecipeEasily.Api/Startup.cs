@@ -24,6 +24,8 @@ using TakeRecipeEasily.Infrastructure.Handlers.Auth;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.IngredientsCategories;
 using TakeRecipeEasily.Infrastructure.Handlers.IngredientsCategories;
 using TakeRecipeEasily.Infrastructure.Authentication.Settings;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.Ingredients;
+using TakeRecipeEasily.Infrastructure.Handlers.Ingredients;
 
 namespace TakeRecipeEasily.Api
 {
@@ -53,17 +55,24 @@ namespace TakeRecipeEasily.Api
                     builder.RegisterInstance(sqlSettings);
 
                     builder.RegisterRepository<IngredientsCategoriesRepository, IIngredientsCategoriesRepository>();
+                    builder.RegisterRepository<IngredientsRepository, IIngredientsRepository>();
+                    builder.RegisterRepository<RecipesRatingsRepository, IRecipesRatingsRepository>();
+                    builder.RegisterRepository<RecipesRepository, IRecipesRepository>();
                     builder.RegisterRepository<UsersRepository, IUsersRepository>();
 
                     builder.RegisterService<AuthenticationService, IAuthenticationService>();
                     builder.RegisterService<IngredientsCategoriesService, IIngredientsCategoriesService>();
+                    builder.RegisterService<IngredientsService, IIngredientsService>();
                     builder.RegisterService<PasswordHasher, IPasswordHasher>();
+                    builder.RegisterService<RecipesService, IRecipesService>();
                     builder.RegisterService<UsersService, IUsersService>();
 
                     builder.RegisterType<HmacJwtService>().As<IJwtService>();
                     builder.RegisterType<Handler>().As<IHandler>();
                 })
                 .RespondToCommand<CreateIngredientCategoryCommand, CreateIngredientCategoryCommandHandler>()
+                .RespondToCommand<CreateIngredientCommand, CreateIngredientCommandHandler>()
+                .RespondToCommand<UpdateIngredientCommand, UpdateIngredientCommandHandler>()
                 .RespondToCommand<CreateUserCommand, CreateUserCommandHandler>()
                 .RespondToCommand<LoginCommand, LoginCommandHandler>()
                 .WithCommandsBus()

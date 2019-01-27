@@ -5,8 +5,8 @@ namespace TakeRecipeEasily.Core.Domain
 {
     public class Recipe : Entity
     {
-        public string Name { get; }
-        public string Description { get; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
         public Guid RecipeRatingId { get; }
         public Guid UserId { get; }
 
@@ -25,5 +25,11 @@ namespace TakeRecipeEasily.Core.Domain
 
         public static Recipe Create(Guid id, string name, string description, Guid recipeRatingId, Guid userId)
             => new Recipe(id, name, description, recipeRatingId, userId);
+
+        public void Update(string name, string description)
+        {
+            Name = name;
+            Description = description;
+        }
     }
 }
