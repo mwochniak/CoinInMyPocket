@@ -1,31 +1,29 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using TakeRecipeEasily.Core.Repositories;
-using TakeRecipeEasily.Infrastructure.Authentication.Middleware;
-using TakeRecipeEasily.Infrastructure.Builders.Implementations;
-using TakeRecipeEasily.Infrastructure.Handlers;
-using TakeRecipeEasily.Infrastructure.IoC;
-using TakeRecipeEasily.Infrastructure.Repositories;
-using TakeRecipeEasily.Infrastructure.Services;
-using TakeRecipeEasily.Infrastructure.Services.Implementations;
-using TakeRecipeEasily.Infrastructure.Settings;
-using TakeRecipeEasily.Infrastructure.SQL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using TakeRecipeEasily.Infrastructure.Exceptions;
-using TakeRecipeEasily.Infrastructure.Contracts.Commands.Users;
-using TakeRecipeEasily.Infrastructure.Handlers.Users;
-using TakeRecipeEasily.Infrastructure.Contracts.Commands.Auth;
-using TakeRecipeEasily.Infrastructure.Handlers.Auth;
-using TakeRecipeEasily.Infrastructure.Contracts.Commands.IngredientsCategories;
-using TakeRecipeEasily.Infrastructure.Handlers.IngredientsCategories;
+using TakeRecipeEasily.Infrastructure.Authentication.Middleware;
 using TakeRecipeEasily.Infrastructure.Authentication.Settings;
+using TakeRecipeEasily.Infrastructure.Builders.Implementations;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.Auth;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Ingredients;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.IngredientsCategories;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.Users;
+using TakeRecipeEasily.Infrastructure.Exceptions;
+using TakeRecipeEasily.Infrastructure.Handlers;
+using TakeRecipeEasily.Infrastructure.Handlers.Auth;
 using TakeRecipeEasily.Infrastructure.Handlers.Ingredients;
+using TakeRecipeEasily.Infrastructure.Handlers.IngredientsCategories;
+using TakeRecipeEasily.Infrastructure.Handlers.Users;
+using TakeRecipeEasily.Infrastructure.IoC;
+using TakeRecipeEasily.Infrastructure.Services;
+using TakeRecipeEasily.Infrastructure.Services.Implementations;
+using TakeRecipeEasily.Infrastructure.Settings;
+using TakeRecipeEasily.Infrastructure.SQL;
 
 namespace TakeRecipeEasily.Api
 {
@@ -45,27 +43,26 @@ namespace TakeRecipeEasily.Api
             services.AddMvc();
             services.AddOptions();
             services.AddSingleton(Configuration);
-            var sqlSettings = Configuration.GetSettings<SQLSettings>();
-            services.AddDbContext<TakeRecipeEasilyContext>(options => options.UseSqlServer(sqlSettings.ConnectionString));
+            var sqlSettings = Configuration.GetSettings<DatabaseSettings>();
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(sqlSettings.ConnectionString));
 
             var applicationContainer = MVCWebServiceBuilder
                 .Create(services, Configuration, builder =>
                 {
-                    builder.RegisterInstance(Configuration.GetSettings<AuthSettings>());
-                    builder.RegisterInstance(sqlSettings);
-
-                    builder.RegisterRepository<IngredientsCategoriesRepository, IIngredientsCategoriesRepository>();
-                    builder.RegisterRepository<IngredientsRepository, IIngredientsRepository>();
-                    builder.RegisterRepository<RecipesRatingsRepository, IRecipesRatingsRepository>();
-                    builder.RegisterRepository<RecipesRepository, IRecipesRepository>();
-                    builder.RegisterRepository<UsersRepository, IUsersRepository>();
+                    builder.RegisterInstance(Configuration.GetSettings<AuthSettings>()).SingleInstance();
+                    builder.RegisterInstance(sqlSettings).SingleInstance();
 
                     builder.RegisterService<AuthenticationService, IAuthenticationService>();
-                    builder.RegisterService<IngredientsCategoriesService, IIngredientsCategoriesService>();
-                    builder.RegisterService<IngredientsService, IIngredientsService>();
                     builder.RegisterService<PasswordHasher, IPasswordHasher>();
-                    builder.RegisterService<RecipesService, IRecipesService>();
-                    builder.RegisterService<UsersService, IUsersService>();
+
+                    builder.RegisterService<IngredientsCategoriesCommandService, IIngredientsCategoriesCommandService>();
+                    builder.RegisterService<IngredientsCategoriesQueryService, IIngredientsCategoriesQueryService>();
+                    builder.RegisterService<IngredientsCommandService, IIngredientsCommandService>();
+                    builder.RegisterService<IngredientsQueryService, IIngredientsQueryService>();
+                    builder.RegisterService<RecipesCommandService, IRecipesCommandService>();
+                    builder.RegisterService<RecipesQueryService, IRecipesQueryService>();
+                    builder.RegisterService<UsersCommandService, IUsersCommandService>();
+                    builder.RegisterService<UsersQueryService, IUsersQueryService>();
 
                     builder.RegisterType<HmacJwtService>().As<IJwtService>();
                     builder.RegisterType<Handler>().As<IHandler>();

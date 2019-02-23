@@ -12,11 +12,11 @@ namespace TakeRecipeEasily.Api.Controllers
     public class UsersController : Controller
     {
         private readonly ICommandsBus _commandsBus;
-        private readonly IUsersService _usersService;
+        private readonly IUsersQueryService _usersService;
 
         public UsersController(
             ICommandsBus commandsBus,
-            IUsersService usersService)
+            IUsersQueryService usersService)
         {
             _commandsBus = commandsBus;
             _usersService = usersService;

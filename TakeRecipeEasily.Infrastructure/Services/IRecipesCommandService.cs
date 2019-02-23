@@ -1,17 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Core.UpdateModels.Recipes;
-using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Recipes;
 
 namespace TakeRecipeEasily.Infrastructure.Services
 {
-    public interface IRecipesService : IServisable
+    public interface IRecipesCommandService : IServisable
     {
-        Task CreateRecipeAsync(Recipe recipe);
+        Task CreateRecipeAsync(Recipe recipe, IEnumerable<Guid> ingredientsIds);
         Task UpdateRecipeAsync(RecipeUpdateModel recipeUpdateModel);
-        Task DeleteRecipeAsync(Guid id);
-
-        Task<RecipeRetrieveModel> GetRecipeAsync(Guid id);
+        Task DeleteRecipeAsync(Guid recipeId);
     }
 }

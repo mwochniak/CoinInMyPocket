@@ -5,9 +5,11 @@ namespace TakeRecipeEasily.Core.Domain
 {
     public class IngredientCategory : Entity
     {
-        public string Name { get; }
+        public string Name { get; private set; }
 
-        public virtual ICollection<IngredientCategoryIngredient> IngredientCategoriesIngredients { get; }
+        public virtual ICollection<IngredientCategoryIngredient> IngredientCategoriesIngredients { get; private set; }
+
+        private IngredientCategory() {}
 
         private IngredientCategory(Guid id, string name)
         {

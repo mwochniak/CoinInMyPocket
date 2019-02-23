@@ -9,18 +9,18 @@ namespace TakeRecipeEasily.Infrastructure.Handlers.Ingredients
     public class CreateIngredientCommandHandler : ICommandHandler<CreateIngredientCommand>
     {
         private readonly IHandler _handler;
-        private readonly IIngredientsService _ingredientsService;
+        private readonly IIngredientsCommandService _ingredientsCommandService;
 
-        public CreateIngredientCommandHandler(IHandler handler, IIngredientsService ingredientsService)
+        public CreateIngredientCommandHandler(IHandler handler, IIngredientsCommandService ingredientsCommandService)
         {
             _handler = handler;
-            _ingredientsService = ingredientsService;
+            _ingredientsCommandService = ingredientsCommandService;
         }
 
         public async Task HandleCommandAsync(CreateIngredientCommand command)
             => await _handler
                 .Validate(() => IngredientCommandModelsValidation.CreateIngredientCommandValidation(command))
-                .Handle(async () => await _ingredientsService.CreateIngredientAsync(Ingredient.Create(command.Id, command.Name, command.IngredientCategoryId)))
+                .Handle(async () => await _ingredientsCommandService.CreateIngredientAsync(Ingredient.Create(command.Id, command.Name, command.IngredientCategoryId)))
                 .ExecuteAsync();
     }
 }

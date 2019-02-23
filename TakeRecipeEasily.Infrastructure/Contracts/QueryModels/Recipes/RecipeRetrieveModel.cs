@@ -9,8 +9,9 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Recipes
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public Guid RecipeRatingId { get; set; }
+        public int RecipeRating { get; set; }
         public Guid UserId { get; set; }
+        public string UserFullName { get; set; }
         public IEnumerable<IngredientRetrieveModel> Ingredients { get; set; }
     }
 }

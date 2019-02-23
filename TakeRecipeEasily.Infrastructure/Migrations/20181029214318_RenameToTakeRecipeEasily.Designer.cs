@@ -9,7 +9,7 @@ using TakeRecipeEasily.Infrastructure.SQL;
 
 namespace TakeRecipeEasily.Infrastructure.Migrations
 {
-    [DbContext(typeof(TakeRecipeEasilyContext))]
+    [DbContext(typeof(DatabaseContext))]
     [Migration("20181029214318_RenameToTakeRecipeEasily")]
     partial class RenameToTakeRecipeEasily
     {

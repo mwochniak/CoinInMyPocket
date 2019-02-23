@@ -7,12 +7,14 @@ namespace TakeRecipeEasily.Core.Domain
     {
         public string Name { get; private set; }
         public string Description { get; private set; }
-        public Guid RecipeRatingId { get; }
-        public Guid UserId { get; }
+        public Guid RecipeRatingId { get; private set; }
+        public Guid UserId { get; private set; }
 
-        public RecipeRating RecipeRating { get; }
-        public User User { get; }
-        public virtual ICollection<RecipeIngredient> RecipesIngredients { get; }
+        public RecipeRating RecipeRating { get; private set; }
+        public User User { get; private set; }
+        public virtual ICollection<RecipeIngredient> RecipesIngredients { get; private set; }
+
+        private Recipe() {}
 
         private Recipe(Guid id, string name, string description, Guid recipeRatingId, Guid userId)
         {

@@ -10,22 +10,22 @@ namespace TakeRecipeEasily.Infrastructure.Handlers.Users
     {
         private readonly IHandler _handler;
         private readonly IPasswordHasher _passwordHasher;
-        private readonly IUsersService _usersService;
+        private readonly IUsersCommandService _usersCommandService;
 
         public CreateUserCommandHandler(
             IHandler handler,
             IPasswordHasher passwordHasher,
-            IUsersService usersService)
+            IUsersCommandService usersCommandService)
         {
             _handler = handler;
             _passwordHasher = passwordHasher;
-            _usersService = usersService;
+            _usersCommandService = usersCommandService;
         }
 
         public async Task HandleCommandAsync(CreateUserCommand command)
             => await _handler
                 .Validate(() => UsersCommandModelsValidation.CreateUserCommandValidation(command))
-                .Handle(async () => await _usersService.CreateUserAsync(User.Create(command.Id, command.Email, command.FirstName, command.LastName, _passwordHasher.HashPassword(command.Password))))
+                .Handle(async () => await _usersCommandService.CreateUserAsync(User.Create(command.Id, command.Email, command.FirstName, command.LastName, _passwordHasher.HashPassword(command.Password))))
                 .ExecuteAsync();
     }
 }

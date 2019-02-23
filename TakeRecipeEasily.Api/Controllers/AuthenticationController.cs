@@ -14,12 +14,12 @@ namespace TakeRecipeEasily.Api.Controllers
     {
         private readonly ICommandsBus _commandsBus;
         private readonly IJwtService _jwtService;
-        private readonly IUsersService _usersService;
+        private readonly IUsersQueryService _usersService;
 
         public AuthenticationController(
             ICommandsBus commandsBus,
             IJwtService jwtService,
-            IUsersService usersService)
+            IUsersQueryService usersService)
         {
             _commandsBus = commandsBus;
             _jwtService = jwtService;

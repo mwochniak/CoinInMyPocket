@@ -1,6 +1,6 @@
 ﻿namespace TakeRecipeEasily.Infrastructure.SQL
 {
-    public class SQLSettings
+    public class DatabaseSettings
     {
         public string ConnectionString { get; set; }
     }

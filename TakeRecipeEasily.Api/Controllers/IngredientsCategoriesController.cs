@@ -15,23 +15,23 @@ namespace TakeRecipeEasily.Api.Controllers
     public class IngredientsCategoriesController : Controller
     {
         private readonly ICommandsBus _commandsBus;
-        private readonly IIngredientsCategoriesService _ingredientCategoryService;
+        private readonly IIngredientsCategoriesQueryService _ingredientCategoryQueryService;
 
-        public IngredientsCategoriesController(ICommandsBus commandsBus, IIngredientsCategoriesService ingredientCategoryService)
+        public IngredientsCategoriesController(ICommandsBus commandsBus, IIngredientsCategoriesQueryService ingredientCategoryQueryService)
         {
             _commandsBus = commandsBus;
-            _ingredientCategoryService = ingredientCategoryService;
+            _ingredientCategoryQueryService = ingredientCategoryQueryService;
         }
 
         [HttpPost("")]
         public async Task<IActionResult> CreateIngredientCategoryAsync([FromBody] CreateIngredientCategoryCommand command)
         {
             await _commandsBus.SendCommandAsync(command);
-            return Ok(await _ingredientCategoryService.GetIngredientCategoryAsync(command.Id));
+            return Ok(await _ingredientCategoryQueryService.GetIngredientCategoryAsync(command.Id));
         }
 
         [HttpGet("")]
         public async Task<IActionResult> GetIngredientCategoriesAsync()
-            => Ok(await _ingredientCategoryService.GetIngredientCategoriesAsync());
+            => Ok(await _ingredientCategoryQueryService.GetIngredientCategoriesAsync());
     }
 }

@@ -4,10 +4,12 @@ namespace TakeRecipeEasily.Core.Domain
 {
     public sealed class RecipeRating : Entity
     {
-        public int Rate { get; }
-        public Guid RecipeId { get; }
+        public int Rate { get; private set; }
+        public Guid RecipeId { get; private set; }
 
-        public Recipe Recipe { get; }
+        public Recipe Recipe { get; private set; }
+
+        private RecipeRating() { }
 
         private RecipeRating(Guid id, int rate, Guid recipeId)
         {

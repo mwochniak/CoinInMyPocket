@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Authentication.Attributes;
 using TakeRecipeEasily.Infrastructure.Busses;
@@ -15,12 +13,12 @@ namespace TakeRecipeEasily.Api.Controllers
     public class RecipesController : Controller
     {
         private readonly ICommandsBus _commandsBus;
-        private readonly IRecipesService _recipesService;
+        private readonly IRecipesQueryService _recipesQueryService;
 
-        public RecipesController(ICommandsBus commandsBus, IRecipesService recipesService)
+        public RecipesController(ICommandsBus commandsBus, IRecipesQueryService recipesQueryService)
         {
             _commandsBus = commandsBus;
-            _recipesService = recipesService;
+            _recipesQueryService = recipesQueryService;
         }
 
         [HttpPost("")]
@@ -29,5 +27,23 @@ namespace TakeRecipeEasily.Api.Controllers
             await _commandsBus.SendCommandAsync(command);
             return Ok();
         }
+
+        [HttpPut("")]
+        public async Task<IActionResult> UpdateRecipeAsync([FromBody] UpdateRecipeCommand command)
+        {
+            await _commandsBus.SendCommandAsync(command);
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteRecipeAsync([FromBody] DeleteRecipeCommand command)
+        {
+            await _commandsBus.SendCommandAsync(command);
+            return Ok();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetRecipeAsync([FromRoute] Guid id)
+            => Ok(await _recipesQueryService.GetRecipeAsync(id));
     }
 }

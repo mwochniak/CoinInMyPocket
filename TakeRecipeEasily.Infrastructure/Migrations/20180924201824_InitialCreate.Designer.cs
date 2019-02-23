@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace TakeRecipeEasily.Infrastructure.Migrations
 {
-    [DbContext(typeof(TakeRecipeEasilyContext))]
+    [DbContext(typeof(DatabaseContext))]
     [Migration("20180924201824_InitialCreate")]
     partial class InitialCreate
     {

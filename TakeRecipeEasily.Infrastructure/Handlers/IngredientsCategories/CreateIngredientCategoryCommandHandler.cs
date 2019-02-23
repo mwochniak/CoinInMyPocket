@@ -9,20 +9,20 @@ namespace TakeRecipeEasily.Infrastructure.Handlers.IngredientsCategories
     public class CreateIngredientCategoryCommandHandler : ICommandHandler<CreateIngredientCategoryCommand>
     {
         private readonly IHandler _handler;
-        private readonly IIngredientsCategoriesService _ingredientsCategoriesService;
+        private readonly IIngredientsCategoriesCommandService _ingredientsCategoriesCommandService;
 
         public CreateIngredientCategoryCommandHandler(
             IHandler handler,
-            IIngredientsCategoriesService ingredientsCategoriesService)
+            IIngredientsCategoriesCommandService ingredientsCategoriesCommandService)
         {
             _handler = handler;
-            _ingredientsCategoriesService = ingredientsCategoriesService;
+            _ingredientsCategoriesCommandService = ingredientsCategoriesCommandService;
         }
 
         public async Task HandleCommandAsync(CreateIngredientCategoryCommand command)
             => await _handler
                 .Validate(() => IngredientsCategoriesCommandModelsValidation.CreateIngredientCategoryCommandValidation(command))
-                .Handle(async () => await _ingredientsCategoriesService.CreateIngredientCategoryAsync(IngredientCategory.Create(command.Id, command.Name)))
+                .Handle(async () => await _ingredientsCategoriesCommandService.CreateIngredientCategoryAsync(IngredientCategory.Create(command.Id, command.Name)))
                 .ExecuteAsync();
     }
 }

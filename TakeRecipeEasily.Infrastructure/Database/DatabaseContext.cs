@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TakeRecipeEasily.Infrastructure.SQL
 {
-    public class TakeRecipeEasilyContext : DbContext
+    public class DatabaseContext : DbContext
     {
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<IngredientCategory> IngredientsCategories { get; set; }
@@ -13,8 +13,8 @@ namespace TakeRecipeEasily.Infrastructure.SQL
         public DbSet<RecipeRating> RecipesRatings { get; set; }
         public DbSet<User> Users { get; set; }
 
-        public TakeRecipeEasilyContext(
-            DbContextOptions<TakeRecipeEasilyContext> options) : base(options)
+        public DatabaseContext(
+            DbContextOptions<DatabaseContext> options) : base(options)
         {
         }
 
