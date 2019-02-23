@@ -4,7 +4,7 @@ using Valit;
 
 namespace TakeRecipeEasily.Infrastructure.Validation.CommandModelsValidation
 {
-    internal class IngredientCommandModelsValidation
+    internal static class IngredientCommandModelsValidation
     {
         internal static void CreateIngredientCommandValidation(CreateIngredientCommand command)
         {
