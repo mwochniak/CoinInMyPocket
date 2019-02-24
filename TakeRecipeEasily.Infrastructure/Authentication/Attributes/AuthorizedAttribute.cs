@@ -1,7 +1,6 @@
 ﻿using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Infrastructure.Exceptions.ErrorMessages;
 using TakeRecipeEasily.Infrastructure.Validation;
-using ePrzedszkole.Common.Auth.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -9,6 +8,7 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using TakeRecipeEasily.Infrastructure.Authentication.Models;
 
 namespace TakeRecipeEasily.Infrastructure.Authentication.Attributes
 {

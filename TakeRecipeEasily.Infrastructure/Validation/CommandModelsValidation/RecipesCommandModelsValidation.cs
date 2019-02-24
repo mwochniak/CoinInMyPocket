@@ -42,8 +42,6 @@ namespace TakeRecipeEasily.Infrastructure.Validation.CommandModelsValidation
                     .Required()
                     .MinLength(4)
                     .MaxLength(1000))
-                .Ensure(c => c.RecipeRatingId, _ => _
-                    .IsNotEmpty())
                 .Ensure(c => c.IngredientsIds, _ => _
                     .Required())
                 .For(command)

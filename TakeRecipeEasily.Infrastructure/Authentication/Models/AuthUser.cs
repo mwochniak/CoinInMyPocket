@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 
-namespace ePrzedszkole.Common.Auth.Models
+namespace TakeRecipeEasily.Infrastructure.Authentication.Models
 {
     public class AuthUser
     {

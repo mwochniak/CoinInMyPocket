@@ -2,7 +2,7 @@
 
 namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.Ingredients
 {
-    public class UpdateIngredientCommand : ICommand
+    public class UpdateIngredientCommand : Command
     {
         public Guid Id { get; }
         public Guid IngredientCategoryId { get; }
