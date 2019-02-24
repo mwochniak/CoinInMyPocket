@@ -8,7 +8,8 @@ namespace TakeRecipeEasily.Core.Domain
         public string Name { get; private set; }
         public Guid IngredientCategoryId { get; private set; }
 
-        public virtual ICollection<IngredientCategoryIngredient> IngredientCategoriesIngredients { get; private set; }
+        public IngredientCategory IngredientCategory { get; private set; }
+
         public virtual ICollection<RecipeIngredient> RecipesIngredients { get; private set; }
 
         private Ingredient() {}
@@ -23,7 +24,10 @@ namespace TakeRecipeEasily.Core.Domain
         public static Ingredient Create(Guid ingredientId, string name, Guid ingredientCategoryId)
             => new Ingredient(ingredientId, name, ingredientCategoryId);
 
-        public void Update(string name)
-            => Name = name;
+        public void Update(string name, Guid ingredientCategoryId)
+        {
+            Name = name;
+            IngredientCategoryId = ingredientCategoryId;
+        }
     }
 }

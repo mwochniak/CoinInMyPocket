@@ -14,7 +14,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
 
         public async Task CreateUserAsync(User user)
         {
-            using (var transactionScope = new TransactionScope())
+            using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 if (await _dbContext.Users.AnyAsync(u => u.Email == user.Email))
                     return;

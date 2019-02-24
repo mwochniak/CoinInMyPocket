@@ -4,14 +4,12 @@ using Valit;
 
 namespace TakeRecipeEasily.Infrastructure.Validation.CommandModelsValidation
 {
-    internal class RecipesCommandModelsValidation
+    internal static class RecipesCommandModelsValidation
     {
         internal static void CreateRecipeCommandValidation(CreateRecipeCommand command)
         {
             var result = ValitRules<CreateRecipeCommand>
                 .Create()
-                .Ensure(c => c.Id, _ => _
-                    .IsNotEmpty())
                 .Ensure(c => c.Name, _ => _
                     .Required()
                     .MinLength(4)

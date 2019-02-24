@@ -4,13 +4,13 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.Ingredients
 {
     public class CreateIngredientCommand : ICommand
     {
-        public Guid Id { get; } = Guid.NewGuid();
+        public Guid Id { get; }
         public Guid IngredientCategoryId { get; }
         public string Name { get; }
 
-        public CreateIngredientCommand(Guid id, Guid ingredientCategoryId, string name)
+        public CreateIngredientCommand(Guid ingredientCategoryId, string name)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             IngredientCategoryId = ingredientCategoryId;
             Name = name;
         }

@@ -33,5 +33,8 @@ namespace TakeRecipeEasily.Core.Domain
             Name = name;
             Description = description;
         }
+
+        public void AddRecipeIngredients(IEnumerable<Guid> ingredientsIds)
+            => RecipesIngredients = RecipeIngredient.Create(Id, ingredientsIds);
     }
 }

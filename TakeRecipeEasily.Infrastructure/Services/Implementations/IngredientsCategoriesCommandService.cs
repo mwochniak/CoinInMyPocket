@@ -14,12 +14,13 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
 
         public async Task CreateIngredientCategoryAsync(IngredientCategory ingredientCategory)
         {
-            using (var transactionScope = new TransactionScope())
+            using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 if (await _dbContext.IngredientsCategories.AnyAsync(i => i.Name == ingredientCategory.Name))
                     return;
 
                 await _dbContext.IngredientsCategories.AddAsync(ingredientCategory);
+                await _dbContext.SaveChangesAsync();
 
                 transactionScope.Complete();
             }

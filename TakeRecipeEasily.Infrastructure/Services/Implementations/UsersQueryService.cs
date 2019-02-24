@@ -21,7 +21,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 FirstName = u.FirstName,
                 LastName = u.LastName
             })
-            .SingleAsync();
+            .SingleOrDefaultAsync();
 
         public async Task<UserRetrieveModel> GetUserAsync(string email)
             => await _dbContext.Users.Where(u => u.Email == email).Select(u => new UserRetrieveModel()
@@ -31,6 +31,6 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 FirstName = u.FirstName,
                 LastName = u.LastName
             })
-            .SingleAsync();
+            .SingleOrDefaultAsync();
     }
 }

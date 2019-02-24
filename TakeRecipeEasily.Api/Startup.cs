@@ -12,12 +12,14 @@ using TakeRecipeEasily.Infrastructure.Builders.Implementations;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Auth;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Ingredients;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.IngredientsCategories;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Users;
 using TakeRecipeEasily.Infrastructure.Exceptions;
 using TakeRecipeEasily.Infrastructure.Handlers;
 using TakeRecipeEasily.Infrastructure.Handlers.Auth;
 using TakeRecipeEasily.Infrastructure.Handlers.Ingredients;
 using TakeRecipeEasily.Infrastructure.Handlers.IngredientsCategories;
+using TakeRecipeEasily.Infrastructure.Handlers.Recipes;
 using TakeRecipeEasily.Infrastructure.Handlers.Users;
 using TakeRecipeEasily.Infrastructure.IoC;
 using TakeRecipeEasily.Infrastructure.Services;
@@ -69,9 +71,12 @@ namespace TakeRecipeEasily.Api
                 })
                 .RespondToCommand<CreateIngredientCategoryCommand, CreateIngredientCategoryCommandHandler>()
                 .RespondToCommand<CreateIngredientCommand, CreateIngredientCommandHandler>()
-                .RespondToCommand<UpdateIngredientCommand, UpdateIngredientCommandHandler>()
+                .RespondToCommand<CreateRecipeCommand, CreateRecipeCommandHandler>()
                 .RespondToCommand<CreateUserCommand, CreateUserCommandHandler>()
+                .RespondToCommand<DeleteRecipeCommand, DeleteRecipeCommandHandler>()
                 .RespondToCommand<LoginCommand, LoginCommandHandler>()
+                .RespondToCommand<UpdateIngredientCommand, UpdateIngredientCommandHandler>()
+                .RespondToCommand<UpdateRecipeCommand, UpdateRecipeCommandHandler>()
                 .WithCommandsBus()
                 .WithEventsBus()
                 .Build();

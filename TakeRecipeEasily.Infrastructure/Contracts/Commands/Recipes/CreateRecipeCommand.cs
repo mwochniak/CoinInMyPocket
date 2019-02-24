@@ -5,19 +5,19 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes
 {
     public class CreateRecipeCommand : ICommand
     {
-        public Guid Id { get; } = Guid.NewGuid();
+        public Guid Id { get; }
         public string Name { get; }
         public string Description { get; }
-        public Guid RecipeRatingId { get; } = Guid.NewGuid();
+        public Guid RecipeRatingId { get; }
         public Guid UserId { get; }
         public IEnumerable<Guid> IngredientsIds { get; }
 
-        public CreateRecipeCommand(Guid id, string name, string description, Guid recipeRatingId, Guid userId, IEnumerable<Guid> ingredientsIds)
+        public CreateRecipeCommand(string name, string description, Guid userId, IEnumerable<Guid> ingredientsIds)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             Name = name;
             Description = description;
-            RecipeRatingId = recipeRatingId;
+            RecipeRatingId = Guid.NewGuid();
             UserId = userId;
             IngredientsIds = ingredientsIds;
         }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Authentication.Attributes;
 using TakeRecipeEasily.Infrastructure.Busses;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes;
+using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Recipes;
 using TakeRecipeEasily.Infrastructure.Services;
 
 namespace TakeRecipeEasily.Api.Controllers
@@ -25,14 +26,14 @@ namespace TakeRecipeEasily.Api.Controllers
         public async Task<IActionResult> CreateRecipeAsync([FromBody] CreateRecipeCommand command)
         {
             await _commandsBus.SendCommandAsync(command);
-            return Ok();
+            return Ok(await _recipesQueryService.GetRecipeAsync(command.Id));
         }
 
         [HttpPut("")]
         public async Task<IActionResult> UpdateRecipeAsync([FromBody] UpdateRecipeCommand command)
         {
             await _commandsBus.SendCommandAsync(command);
-            return Ok();
+            return Ok(await _recipesQueryService.GetRecipeAsync(command.Id));
         }
 
         [HttpDelete("{id}")]

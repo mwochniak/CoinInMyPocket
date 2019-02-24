@@ -20,6 +20,6 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 IngredientCategoryId = i.IngredientCategoryId,
                 Name = i.Name
             })
-            .SingleAsync(i => i.Id == ingredientId);
+            .SingleOrDefaultAsync(i => i.Id == ingredientId);
     }
 }

@@ -30,6 +30,6 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 UserId = r.UserId,
                 UserFullName = r.User.FirstName + " " + r.User.LastName
             })
-            .SingleAsync();
+            .SingleOrDefaultAsync();
     }
 }

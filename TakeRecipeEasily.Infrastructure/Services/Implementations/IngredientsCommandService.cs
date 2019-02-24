@@ -17,22 +17,25 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
 
         public async Task CreateIngredientAsync(Ingredient ingredient)
         {
-            using (var transactionScope = new TransactionScope())
+            using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 await _dbContext.Ingredients.AddAsync(ingredient);
 
+                await _dbContext.SaveChangesAsync();
                 transactionScope.Complete();
             }
         }
 
         public async Task UpdateIngredientAsync(IngredientUpdateModel ingredientUpdateModel)
         {
-            using (var transactionScope = new TransactionScope())
+            using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 var ingredient = await GetIngredientAsync(ingredientUpdateModel.Id);
-                ingredient.Update(ingredientUpdateModel.Name);
+
+                ingredient.Update(ingredientUpdateModel.Name, ingredientUpdateModel.IngredientCategoryId);
                 _dbContext.Ingredients.Update(ingredient);
 
+                await _dbContext.SaveChangesAsync();
                 transactionScope.Complete();
             }
         }
@@ -40,6 +43,6 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
         private async Task<Ingredient> GetIngredientAsync(Guid ingredientId)
             => await _dbContext.Ingredients
                 .Select(i => Ingredient.Create(i.Id, i.Name, i.IngredientCategoryId))
-                .SingleAsync(i => i.Id == ingredientId);
+                .SingleOrDefaultAsync(i => i.Id == ingredientId);
     }
 }

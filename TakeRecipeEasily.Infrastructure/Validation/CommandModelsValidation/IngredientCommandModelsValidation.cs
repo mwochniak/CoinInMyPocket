@@ -10,8 +10,6 @@ namespace TakeRecipeEasily.Infrastructure.Validation.CommandModelsValidation
         {
             var result = ValitRules<CreateIngredientCommand>
                 .Create()
-                .Ensure(c => c.Id, _ => _
-                    .IsNotEmpty())
                 .Ensure(c => c.Name, _ => _
                     .Required()
                     .MinLength(4)

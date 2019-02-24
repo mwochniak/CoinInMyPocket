@@ -20,7 +20,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 Id = ic.Id,
                 Name = ic.Name
             })
-            .SingleAsync(ic => ic.Id == id);
+            .SingleOrDefaultAsync(ic => ic.Id == id);
 
         public async Task<IEnumerable<IngredientCategoryRetrieveModel>> GetIngredientCategoriesAsync()
             => await _dbContext.IngredientsCategories.Select(ic => new IngredientCategoryRetrieveModel()

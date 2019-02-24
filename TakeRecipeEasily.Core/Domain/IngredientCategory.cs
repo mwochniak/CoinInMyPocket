@@ -7,7 +7,7 @@ namespace TakeRecipeEasily.Core.Domain
     {
         public string Name { get; private set; }
 
-        public virtual ICollection<IngredientCategoryIngredient> IngredientCategoriesIngredients { get; private set; }
+        public virtual ICollection<Ingredient> Ingredients { get; private set; }
 
         private IngredientCategory() {}
 
