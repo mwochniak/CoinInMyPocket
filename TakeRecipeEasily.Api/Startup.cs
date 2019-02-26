@@ -42,7 +42,6 @@ namespace TakeRecipeEasily.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddHttpContextAccessor();
             services.AddMvc();
             services.AddOptions();
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetSettings<DatabaseSettings>().ConnectionString));

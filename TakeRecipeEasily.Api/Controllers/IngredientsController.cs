@@ -30,5 +30,9 @@ namespace TakeRecipeEasily.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetIngredientAsync([FromRoute] Guid id)
             => Ok(await _ingredientQueryService.GetIngredientAsync(id));
+
+        [HttpGet("")]
+        public async Task<IActionResult> GetIngredientsAsync()
+           => Ok(await _ingredientQueryService.GetIngredientsAsync());
     }
 }

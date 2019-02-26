@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Ingredients;
@@ -31,5 +32,23 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 UserFullName = r.User.FirstName + " " + r.User.LastName
             })
             .SingleOrDefaultAsync();
+
+        public async Task<IEnumerable<RecipeRetrieveModel>> GetRecipesAsync()
+            => await _dbContext.Recipes.Select(r => new RecipeRetrieveModel()
+            {
+                Id = r.Id,
+                Description = r.Description,
+                Name = r.Name,
+                Ingredients = r.RecipesIngredients.Select(ri => new IngredientRetrieveModel()
+                {
+                    Id = ri.Ingredient.Id,
+                    IngredientCategoryId = ri.Ingredient.IngredientCategoryId,
+                    Name = ri.Ingredient.Name
+                }),
+                RecipeRating = r.RecipeRating.Rate,
+                UserId = r.UserId,
+                UserFullName = r.User.FirstName + " " + r.User.LastName
+            })
+            .ToListAsync();
     }
 }
