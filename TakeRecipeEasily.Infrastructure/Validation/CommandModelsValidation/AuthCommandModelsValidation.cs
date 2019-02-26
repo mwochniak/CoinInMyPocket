@@ -1,4 +1,4 @@
-﻿using TakeRecipeEasily.Core.Domain;
+﻿using TakeRecipeEasily.Core.Exceptions;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Auth;
 using Valit;
 

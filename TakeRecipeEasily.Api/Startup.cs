@@ -42,17 +42,15 @@ namespace TakeRecipeEasily.Api
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
+            services.AddHttpContextAccessor();
             services.AddMvc();
             services.AddOptions();
-            services.AddSingleton(Configuration);
-            var sqlSettings = Configuration.GetSettings<DatabaseSettings>();
-            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(sqlSettings.ConnectionString));
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetSettings<DatabaseSettings>().ConnectionString));
 
             var applicationContainer = MVCWebServiceBuilder
                 .Create(services, Configuration, builder =>
                 {
                     builder.RegisterInstance(Configuration.GetSettings<AuthSettings>()).SingleInstance();
-                    builder.RegisterInstance(sqlSettings).SingleInstance();
 
                     builder.RegisterService<AuthenticationService, IAuthenticationService>();
                     builder.RegisterService<PasswordHasher, IPasswordHasher>();
@@ -90,6 +88,7 @@ namespace TakeRecipeEasily.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
             }
 
             app.UseTakeRecipeEasilyExceptions();

@@ -8,17 +8,15 @@ using TakeRecipeEasily.Infrastructure.Services;
 namespace TakeRecipeEasily.Api.Controllers
 {
     [Authorized]
-    [Route("api/v1/users")]
-    public class UsersController : Controller
+    [Route("users")]
+    public class UsersController : ApiControllerBase
     {
-        private readonly ICommandsBus _commandsBus;
         private readonly IUsersQueryService _usersService;
 
         public UsersController(
             ICommandsBus commandsBus,
-            IUsersQueryService usersService)
+            IUsersQueryService usersService) : base(commandsBus)
         {
-            _commandsBus = commandsBus;
             _usersService = usersService;
         }
 
@@ -26,14 +24,15 @@ namespace TakeRecipeEasily.Api.Controllers
         public async Task<IActionResult> GetUserAsync(string email)
         {
             var user = await _usersService.GetUserAsync(email);
+
+            if (user == null)
+                return NotFound();
+
             return Ok(user);
         }
 
         [HttpPost("")]
         public async Task<IActionResult> CreateUserAsync([FromBody] CreateUserCommand command)
-        {
-            await _commandsBus.SendCommandAsync(command);
-            return Ok(await _usersService.GetUserAsync(command.Id));
-        }
+            => await RunAsync(command, _ => _usersService.GetUserAsync(command.Id));
     }
 }

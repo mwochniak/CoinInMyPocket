@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 
 namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.Users
 {
-    public class CreateUserCommand : Command
+    public class CreateUserCommand : AuthenticatedCommand
     {
-        public Guid Id { get; } 
+        public Guid Id { get; }
         public string FirstName { get; }
         public string LastName { get; }
         public string Email { get; }

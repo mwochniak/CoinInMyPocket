@@ -1,5 +1,4 @@
-﻿using TakeRecipeEasily.Core.Abstractions;
-using TakeRecipeEasily.Core.Domain;
+﻿using TakeRecipeEasily.Core.Exceptions;
 
 namespace TakeRecipeEasily.Infrastructure.Exceptions
 {

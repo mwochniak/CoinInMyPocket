@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes
 {
-    public class UpdateRecipeCommand : Command
+    public class UpdateRecipeCommand : AuthenticatedCommand
     {
         public Guid Id { get; }
         public string Name { get; }

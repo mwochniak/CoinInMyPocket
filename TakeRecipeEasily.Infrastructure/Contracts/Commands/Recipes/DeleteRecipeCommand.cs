@@ -2,7 +2,7 @@
 
 namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes
 {
-    public class DeleteRecipeCommand : Command
+    public class DeleteRecipeCommand : AuthenticatedCommand
     {
         public Guid Id { get; }
 

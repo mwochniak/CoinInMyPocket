@@ -2,7 +2,7 @@
 
 namespace TakeRecipeEasily.Infrastructure.Contracts.Commands
 {
-    public class Command : ICommand
+    public class AuthenticatedCommand : IAuthenticatedCommand
     {
         public Guid UserId { get; set; }
     }

@@ -20,6 +20,9 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                     return;
 
                 await _dbContext.Users.AddAsync(user);
+                await _dbContext.SaveChangesAsync();
+
+                transactionScope.Complete();
             }
         }
     }

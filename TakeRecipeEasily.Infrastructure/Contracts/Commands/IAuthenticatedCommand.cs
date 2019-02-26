@@ -2,7 +2,8 @@
 
 namespace TakeRecipeEasily.Infrastructure.Contracts.Commands
 {
-    public interface ICommand
+    public interface IAuthenticatedCommand : ICommand
     {
+        Guid UserId { get; set; }
     }
 }

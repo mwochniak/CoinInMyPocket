@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using TakeRecipeEasily.Core.Domain;
+using TakeRecipeEasily.Core.Exceptions;
 using TakeRecipeEasily.Infrastructure.Exceptions.ErrorMessages;
 using TakeRecipeEasily.Infrastructure.SQL;
 using TakeRecipeEasily.Infrastructure.Validation;

@@ -1,6 +1,6 @@
-﻿using TakeRecipeEasily.Core.Domain;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using TakeRecipeEasily.Core.Exceptions;
 
 namespace TakeRecipeEasily.Infrastructure.Validation
 {

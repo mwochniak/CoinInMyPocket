@@ -1,6 +1,6 @@
 ﻿namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.Auth
 {
-    public class LoginCommand : Command
+    public class LoginCommand : ICommand
     {
         public string Email { get; }
         public string Password { get; }

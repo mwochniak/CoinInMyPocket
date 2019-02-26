@@ -9,38 +9,25 @@ using TakeRecipeEasily.Infrastructure.Services;
 namespace TakeRecipeEasily.Api.Controllers
 {
     [Authorized]
-    [Route("api/v1/recipes")]
-    public class RecipesController : Controller
+    [Route("recipes")]
+    public class RecipesController : ApiControllerBase
     {
-        private readonly ICommandsBus _commandsBus;
         private readonly IRecipesQueryService _recipesQueryService;
 
-        public RecipesController(ICommandsBus commandsBus, IRecipesQueryService recipesQueryService)
-        {
-            _commandsBus = commandsBus;
-            _recipesQueryService = recipesQueryService;
-        }
+        public RecipesController(ICommandsBus commandsBus, IRecipesQueryService recipesQueryService) : base(commandsBus)
+            => _recipesQueryService = recipesQueryService;
 
         [HttpPost("")]
         public async Task<IActionResult> CreateRecipeAsync([FromBody] CreateRecipeCommand command)
-        {
-            await _commandsBus.SendCommandAsync(command);
-            return Ok(await _recipesQueryService.GetRecipeAsync(command.Id));
-        }
+            => await RunAsync(command, _ => _recipesQueryService.GetRecipeAsync(command.Id));
 
-        [HttpPut("")]
+        [HttpPut("{id}")]
         public async Task<IActionResult> UpdateRecipeAsync([FromBody] UpdateRecipeCommand command)
-        {
-            await _commandsBus.SendCommandAsync(command);
-            return Ok(await _recipesQueryService.GetRecipeAsync(command.Id));
-        }
+            => await RunAsync(command, _ => _recipesQueryService.GetRecipeAsync(command.Id));
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecipeAsync([FromBody] DeleteRecipeCommand command)
-        {
-            await _commandsBus.SendCommandAsync(command);
-            return Ok();
-        }
+            => await RunAsync(command);
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRecipeAsync([FromRoute] Guid id)

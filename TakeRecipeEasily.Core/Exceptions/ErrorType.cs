@@ -1,4 +1,4 @@
-﻿namespace TakeRecipeEasily.Core.Domain
+﻿namespace TakeRecipeEasily.Core.Exceptions
 {
     public enum ErrorType
     {

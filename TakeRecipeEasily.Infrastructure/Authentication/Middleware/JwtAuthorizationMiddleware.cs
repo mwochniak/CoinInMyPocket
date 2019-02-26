@@ -1,14 +1,13 @@
-﻿using TakeRecipeEasily.Core.Domain;
-using TakeRecipeEasily.Infrastructure.Authentication.Models;
-using TakeRecipeEasily.Infrastructure.Exceptions;
-using TakeRecipeEasily.Infrastructure.Exceptions.ErrorMessages;
-using TakeRecipeEasily.Infrastructure.Services;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using NodaTime;
+using TakeRecipeEasily.Core.Exceptions;
+using TakeRecipeEasily.Infrastructure.Authentication.Models;
+using TakeRecipeEasily.Infrastructure.Exceptions;
+using TakeRecipeEasily.Infrastructure.Exceptions.ErrorMessages;
+using TakeRecipeEasily.Infrastructure.Services;
 
 namespace TakeRecipeEasily.Infrastructure.Authentication.Middleware
 {

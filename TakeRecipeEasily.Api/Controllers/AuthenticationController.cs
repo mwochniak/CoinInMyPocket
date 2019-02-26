@@ -9,19 +9,17 @@ using TakeRecipeEasily.Infrastructure.Services;
 
 namespace TakeRecipeEasily.Api.Controllers
 {
-    [Route("api/v1/auth")]
-    public class AuthenticationController : Controller
+    [Route("auth")]
+    public class AuthenticationController : ApiControllerBase
     {
-        private readonly ICommandsBus _commandsBus;
         private readonly IJwtService _jwtService;
         private readonly IUsersQueryService _usersService;
 
         public AuthenticationController(
             ICommandsBus commandsBus,
             IJwtService jwtService,
-            IUsersQueryService usersService)
+            IUsersQueryService usersService) : base(commandsBus)
         {
-            _commandsBus = commandsBus;
             _jwtService = jwtService;
             _usersService = usersService;
         }
@@ -29,12 +27,7 @@ namespace TakeRecipeEasily.Api.Controllers
         [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> LoginAsync([FromBody] LoginCommand command)
-        {
-            await _commandsBus.SendCommandAsync(command);
-            var user = await _usersService.GetUserAsync(command.Email);
-            var token = CreateJwtToken(user);
-            return Ok(token);
-        }
+            => await RunAsync(command, async _ => CreateJwtToken(await _usersService.GetUserAsync(command.Email)));
 
         private string CreateJwtToken(UserRetrieveModel user)
             => _jwtService.CreateToken(new JwtUserModel

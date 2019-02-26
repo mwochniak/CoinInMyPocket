@@ -17,11 +17,5 @@ namespace TakeRecipeEasily.Infrastructure.IoC
 
         public static void RegisterService<TService>(this ContainerBuilder containerBuilder) where TService : IServisable
             => containerBuilder.Register<TService>();
-
-        public static void RegisterRepository<TRepository, IRepository>(this ContainerBuilder containerBuilder) where TRepository : IRepositorable
-            => containerBuilder.Register<TRepository, IRepository>();
-
-        public static void RegisterRepository<TRepository>(this ContainerBuilder containerBuilder) where TRepository : IRepositorable
-            => containerBuilder.Register<TRepository>();
     }
 }

@@ -1,11 +1,10 @@
-﻿using TakeRecipeEasily.Core.Abstractions;
-using TakeRecipeEasily.Core.Domain;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using TakeRecipeEasily.Core.Exceptions;
 
 namespace TakeRecipeEasily.Infrastructure.Exceptions
 {

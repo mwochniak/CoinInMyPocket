@@ -22,7 +22,8 @@ namespace TakeRecipeEasily.Api.Controllers
 
         protected async Task<IActionResult> RunAsync<TCommand>(TCommand command) where TCommand : ICommand
         {
-            UpdateAuthenticationProperties(command);
+            if (command is IAuthenticatedCommand authCommand)
+                UpdateAuthenticationProperties(authCommand);
 
             await _commandsBus.SendCommandAsync(command);
             return Ok();
@@ -31,18 +32,20 @@ namespace TakeRecipeEasily.Api.Controllers
         protected async Task<IActionResult> RunAsync<TCommand, TModel>(TCommand command, Func<TCommand, Task<TModel>> onSuccessAction)
             where TCommand : ICommand
         {
-            UpdateAuthenticationProperties(command);
+            if (command is IAuthenticatedCommand authCommand)
+                UpdateAuthenticationProperties(authCommand);
 
             await _commandsBus.SendCommandAsync(command);
 
             var result = await onSuccessAction(command);
+
             if (result == null)
-                return BadRequest();
+                return NotFound();
 
             return Ok(result);
         }
 
-        private ICommand UpdateAuthenticationProperties(ICommand command)
+        private IAuthenticatedCommand UpdateAuthenticationProperties(IAuthenticatedCommand command)
         {
             command.UserId = UserId ?? Guid.Empty;
 

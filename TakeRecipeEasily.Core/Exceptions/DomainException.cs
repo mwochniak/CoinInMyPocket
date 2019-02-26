@@ -1,6 +1,6 @@
 ﻿using TakeRecipeEasily.Core.Abstractions;
 
-namespace TakeRecipeEasily.Core.Domain
+namespace TakeRecipeEasily.Core.Exceptions
 {
     public class DomainException : TakeRecipeEasilyException
     {

@@ -1,5 +1,4 @@
-﻿using TakeRecipeEasily.Infrastructure.Authentication.Models;
-using System;
+﻿using System;
 using System.Linq;
 using System.Security.Claims;
 

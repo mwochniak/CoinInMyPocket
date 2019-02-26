@@ -1,7 +1,6 @@
-﻿using TakeRecipeEasily.Core.Domain;
-using System;
+﻿using System;
 
-namespace TakeRecipeEasily.Core.Abstractions
+namespace TakeRecipeEasily.Core.Exceptions
 {
     public abstract class TakeRecipeEasilyException : Exception
     {
