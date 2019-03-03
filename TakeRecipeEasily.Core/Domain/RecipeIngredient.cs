@@ -1,30 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace TakeRecipeEasily.Core.Domain
 {
     public sealed class RecipeIngredient
     {
-        [ForeignKey("Recipe")]
-        public Guid RecipeId { get; set; }
+        public int Quantity { get; private set; }
+        public Guid RecipeId { get; private set; }
+        public Guid IngredientId { get; private set; }
+        public Unit Unit { get; private set; }
 
-        [ForeignKey("Ingredient")]
-        public Guid IngredientId { get; set; }
-
-        public Recipe Recipe { get; set; }
         public Ingredient Ingredient { get; set; }
+        public Recipe Recipe { get; set; }
 
         public RecipeIngredient() { }
 
-        private RecipeIngredient(Guid recipeId, Guid ingredientId)
+        private RecipeIngredient(Guid recipeId, Guid ingredientId, Unit unit, int quantity)
         {
             RecipeId = recipeId;
             IngredientId = ingredientId;
+            Unit = unit;
+            Quantity = quantity;
         }
 
-        public static ICollection<RecipeIngredient> Create(Guid recipeId, IEnumerable<Guid> ingredientsIds)
-            => ingredientsIds.ToList().Select(i => new RecipeIngredient(recipeId, i)).ToHashSet();
+        public static RecipeIngredient Create(Guid recipeId, Unit unit, int quantity, Guid ingredientId)
+            =>  new RecipeIngredient(recipeId: recipeId, ingredientId: ingredientId, unit: unit, quantity: quantity);
     }
 }

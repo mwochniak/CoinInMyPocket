@@ -5,7 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 using TakeRecipeEasily.Core.Domain;
-using TakeRecipeEasily.Core.UpdateModels.Recipes;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.RecipesIngredients;
 using TakeRecipeEasily.Infrastructure.SQL;
 
 namespace TakeRecipeEasily.Infrastructure.Services.Implementations
@@ -16,13 +17,12 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
 
         public RecipesCommandService(DatabaseContext context) => _dbContext = context;
 
-        public async Task CreateRecipeAsync(Recipe recipe, IEnumerable<Guid> ingredientsIds)
+        public async Task CreateRecipeAsync(Recipe recipe, ICollection<RecipeIngredientCreateModel> recipeIngredients)
         {
             using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                recipe.AddRecipeIngredients(ingredientsIds);
+                recipe.AddRecipeIngredients(recipeIngredients.ToList().Select(ri => RecipeIngredient.Create(recipeId: ri.RecipeId, unit: ri.Unit, quantity: ri.Quantity, ingredientId: ri.IngredientId)).ToHashSet());
                 await _dbContext.Recipes.AddAsync(recipe);
-                await _dbContext.RecipesRatings.AddAsync(RecipeRating.Create(recipe.RecipeRatingId, 0, recipe.Id));
 
                 await _dbContext.SaveChangesAsync();
                 transactionScope.Complete();
@@ -35,11 +35,13 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
             {
                 var recipe = await GetRecipeAsync(recipeId);
                 var recipeIngredients = await _dbContext.RecipesIngredients.Where(ri => ri.RecipeId == recipeId).ToListAsync();
-                var recipeRating = await _dbContext.RecipesRatings.SingleOrDefaultAsync(rr => rr.RecipeId == recipeId);
+                var recipeRatings = await _dbContext.RecipesRatings.Where(rr => rr.RecipeId == recipeId).ToListAsync();
+                var recipeImages = await _dbContext.RecipesImages.Where(ri => ri.RecipeId == recipeId).ToListAsync();
 
                 _dbContext.RecipesIngredients.RemoveRange(recipeIngredients);
+                _dbContext.RecipesRatings.RemoveRange(recipeRatings);
+                _dbContext.RecipesImages.RemoveRange(recipeImages);
                 _dbContext.Recipes.Remove(recipe);
-                _dbContext.RecipesRatings.Remove(recipeRating);
 
                 await _dbContext.SaveChangesAsync();
                 transactionScope.Complete();
@@ -53,13 +55,20 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 var recipe = await GetRecipeAsync(recipeUpdateModel.Id);
                 var recipeIngredients = await _dbContext.RecipesIngredients.Where(ri => ri.RecipeId == recipeUpdateModel.Id).ToListAsync();
 
-                var recipeIngredientsIdsToAdd = recipeUpdateModel.IngredientsIds.Where(r => !recipeIngredients.Select(ri => ri.IngredientId).Contains(r)).ToList();
-                var recipeIngredientsToRemove = recipeIngredients.Where(ri => !recipeUpdateModel.IngredientsIds.ToList().Contains(ri.IngredientId));
+                var recipeIngredientsUpdateModelsToAdd = recipeUpdateModel.RecipeIngredients.Where(r => !recipeIngredients.Select(ri => ri.IngredientId).Contains(r.IngredientId)).ToList();
+                var recipeIngredientsToAdd = recipeIngredientsUpdateModelsToAdd.Select(ri => RecipeIngredient.Create(recipeId: ri.RecipeId, unit: ri.Unit, quantity: ri.Quantity, ingredientId: ri.IngredientId)).ToList();
+                var recipeIngredientsToRemove = recipeIngredients.Where(ri => !recipeUpdateModel.RecipeIngredients.Select(uri => uri.IngredientId).ToList().Contains(ri.IngredientId)).ToList();
 
-                recipe.Update(recipeUpdateModel.Name, recipeUpdateModel.Description);
+                recipe.Update(
+                    difficultyLevel: recipeUpdateModel.DifficultyLevel,
+                    preparationTime: recipeUpdateModel.PreparationTime,
+                    totalKcal: recipeUpdateModel.TotalKcal,
+                    description: recipeUpdateModel.Description,
+                    name: recipeUpdateModel.Name,
+                    summary: recipeUpdateModel.Summary);
                 _dbContext.Update(recipe);
 
-                await _dbContext.RecipesIngredients.AddRangeAsync(RecipeIngredient.Create(recipeUpdateModel.Id, recipeIngredientsIdsToAdd));
+                await _dbContext.RecipesIngredients.AddRangeAsync(recipeIngredientsToAdd);
                 _dbContext.RemoveRange(recipeIngredientsToRemove);
 
                 await _dbContext.SaveChangesAsync();
@@ -68,6 +77,16 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
         }
 
         private async Task<Recipe> GetRecipeAsync(Guid recipeId)
-            => await _dbContext.Recipes.Select(r => Recipe.Create(r.Id, r.Name, r.Description, r.RecipeRatingId, r.UserId)).SingleOrDefaultAsync(r => r.Id == recipeId);
+            => await _dbContext.Recipes
+            .Select(r => Recipe.Create(
+                r.Id,
+                r.DifficultyLevel,
+                r.PreparationTime,
+                r.TotalKcal,
+                r.Description,
+                r.Name,
+                r.Summary,
+                r.UserId))
+            .SingleOrDefaultAsync(r => r.Id == recipeId);
     }
 }

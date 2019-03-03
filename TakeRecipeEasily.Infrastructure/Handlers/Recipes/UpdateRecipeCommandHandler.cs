@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using TakeRecipeEasily.Core.UpdateModels.Recipes;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes;
 using TakeRecipeEasily.Infrastructure.Services;
 using TakeRecipeEasily.Infrastructure.Validation.CommandModelsValidation;
@@ -20,7 +19,15 @@ namespace TakeRecipeEasily.Infrastructure.Handlers.Recipes
         public async Task HandleCommandAsync(UpdateRecipeCommand command)
             => await _handler
                 .Validate(() => RecipesCommandModelsValidation.UpdateRecipeCommandValidation(command))
-                .Handle(async () => await _recipesCommandService.UpdateRecipeAsync(RecipeUpdateModel.Create(command.Id, command.Name, command.Description, command.IngredientsIds)))
+                .Handle(async () => await _recipesCommandService.UpdateRecipeAsync(RecipeUpdateModel.Create(
+                    id: command.Id,
+                    difficultyLevel: command.DifficultyLevel,
+                    preparationTime: command.PreparationTime,
+                    totalKcal: command.TotalKcal,
+                    description: command.Description,
+                    name: command.Name,
+                    summary: command.Summary,
+                    recipeIngredients: command.RecipeIngredients)))
                 .ExecuteAsync();
     }
 }

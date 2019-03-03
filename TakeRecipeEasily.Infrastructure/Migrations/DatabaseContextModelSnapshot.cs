@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TakeRecipeEasily.Infrastructure.SQL;
 
 namespace TakeRecipeEasily.Infrastructure.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20190224100827_removeUnnecesaryKeys")]
-    partial class removeUnnecesaryKeys
+    partial class DatabaseContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,9 +54,15 @@ namespace TakeRecipeEasily.Infrastructure.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int>("DifficultyLevel");
+
                     b.Property<string>("Name");
 
-                    b.Property<Guid>("RecipeRatingId");
+                    b.Property<int>("PreparationTime");
+
+                    b.Property<string>("Summary");
+
+                    b.Property<int?>("TotalKcal");
 
                     b.Property<Guid>("UserId");
 
@@ -69,11 +73,33 @@ namespace TakeRecipeEasily.Infrastructure.Migrations
                     b.ToTable("Recipes");
                 });
 
+            modelBuilder.Entity("TakeRecipeEasily.Core.Domain.RecipeImage", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<byte[]>("Content");
+
+                    b.Property<bool>("IsDefault");
+
+                    b.Property<Guid>("RecipeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecipeId");
+
+                    b.ToTable("RecipesImages");
+                });
+
             modelBuilder.Entity("TakeRecipeEasily.Core.Domain.RecipeIngredient", b =>
                 {
                     b.Property<Guid>("RecipeId");
 
                     b.Property<Guid>("IngredientId");
+
+                    b.Property<int>("Quantity");
+
+                    b.Property<int>("Unit");
 
                     b.HasKey("RecipeId", "IngredientId");
 
@@ -87,14 +113,19 @@ namespace TakeRecipeEasily.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Comment");
+
                     b.Property<int>("Rate");
 
                     b.Property<Guid>("RecipeId");
 
+                    b.Property<Guid>("UserId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("RecipeId")
-                        .IsUnique();
+                    b.HasIndex("RecipeId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("RecipesRatings");
                 });
@@ -122,7 +153,7 @@ namespace TakeRecipeEasily.Infrastructure.Migrations
                     b.HasOne("TakeRecipeEasily.Core.Domain.IngredientCategory", "IngredientCategory")
                         .WithMany("Ingredients")
                         .HasForeignKey("IngredientCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("TakeRecipeEasily.Core.Domain.Recipe", b =>
@@ -130,7 +161,15 @@ namespace TakeRecipeEasily.Infrastructure.Migrations
                     b.HasOne("TakeRecipeEasily.Core.Domain.User", "User")
                         .WithMany("Recipes")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("TakeRecipeEasily.Core.Domain.RecipeImage", b =>
+                {
+                    b.HasOne("TakeRecipeEasily.Core.Domain.Recipe", "Recipe")
+                        .WithMany("RecipeImages")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("TakeRecipeEasily.Core.Domain.RecipeIngredient", b =>
@@ -138,20 +177,25 @@ namespace TakeRecipeEasily.Infrastructure.Migrations
                     b.HasOne("TakeRecipeEasily.Core.Domain.Ingredient", "Ingredient")
                         .WithMany("RecipesIngredients")
                         .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("TakeRecipeEasily.Core.Domain.Recipe", "Recipe")
-                        .WithMany("RecipesIngredients")
+                        .WithMany("RecipeIngredients")
                         .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("TakeRecipeEasily.Core.Domain.RecipeRating", b =>
                 {
                     b.HasOne("TakeRecipeEasily.Core.Domain.Recipe", "Recipe")
-                        .WithOne("RecipeRating")
-                        .HasForeignKey("TakeRecipeEasily.Core.Domain.RecipeRating", "RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("RecipeRatings")
+                        .HasForeignKey("RecipeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("TakeRecipeEasily.Core.Domain.User", "User")
+                        .WithMany("RecipesRatings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

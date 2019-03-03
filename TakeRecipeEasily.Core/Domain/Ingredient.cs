@@ -22,7 +22,7 @@ namespace TakeRecipeEasily.Core.Domain
         }
 
         public static Ingredient Create(Guid ingredientId, string name, Guid ingredientCategoryId)
-            => new Ingredient(ingredientId, name, ingredientCategoryId);
+            => new Ingredient(id: ingredientId, name: name, ingredientCategoryId: ingredientCategoryId);
 
         public void Update(string name, Guid ingredientCategoryId)
         {

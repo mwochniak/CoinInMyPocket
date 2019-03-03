@@ -40,12 +40,12 @@ namespace TakeRecipeEasily.Infrastructure.Authentication.Middleware
                 }
                 catch (Exception)
                 {
-                    throw new ServiceException(ErrorType.Unauthorized, AuthenticationErrorCodes.TokenIsNotValid);
+                    throw new ServiceException(ErrorType.BadRequest, AuthenticationErrorCodes.UserIsNotLoggedIn);
                 }
 
                 if (payload.Exp < DateTime.Now)
                 {
-                    throw new ServiceException(ErrorType.Unauthorized, AuthenticationErrorCodes.TokenExpired);
+                    throw new ServiceException(ErrorType.BadRequest, AuthenticationErrorCodes.UserIsNotLoggedIn);
                 }
 
                 var claims = new List<Claim>

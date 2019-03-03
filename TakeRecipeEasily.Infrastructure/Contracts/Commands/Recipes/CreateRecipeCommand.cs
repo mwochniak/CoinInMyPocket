@@ -1,24 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.RecipesIngredients;
 
 namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes
 {
     public class CreateRecipeCommand : AuthenticatedCommand
     {
         public Guid Id { get; }
-        public string Name { get; }
+        public int DifficultyLevel { get; }
+        public int PreparationTime { get; }
+        public int? TotalKcal { get; }
         public string Description { get; }
-        public Guid RecipeRatingId { get; }
-        public IEnumerable<Guid> IngredientsIds { get; }
+        public string Name { get; }
+        public string Summary { get; }
+        public ICollection<RecipeIngredientCreateModel> RecipeIngredients { get; }
 
-        public CreateRecipeCommand(string name, string description, Guid userId, IEnumerable<Guid> ingredientsIds)
+        public CreateRecipeCommand(
+            int difficultyLevel,
+            int preparationTime,
+            int? totalKcal,
+            string description,
+            string name,
+            string summary,
+            Guid userId,
+            ICollection<RecipeIngredientCreateModel> recipeIngredients)
         {
             Id = Guid.NewGuid();
-            Name = name;
+            DifficultyLevel = difficultyLevel;
+            PreparationTime = preparationTime;
+            TotalKcal = totalKcal;
             Description = description;
-            RecipeRatingId = Guid.NewGuid();
+            Name = name;
+            Summary = summary;
             UserId = userId;
-            IngredientsIds = ingredientsIds;
+            RecipeIngredients = recipeIngredients;
         }
     }
 }

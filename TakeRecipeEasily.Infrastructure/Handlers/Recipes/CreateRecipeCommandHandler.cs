@@ -20,7 +20,15 @@ namespace TakeRecipeEasily.Infrastructure.Handlers.Recipes
         public async Task HandleCommandAsync(CreateRecipeCommand command)
             => await _handler
                 .Validate(() => RecipesCommandModelsValidation.CreateRecipeCommandValidation(command))
-                .Handle(async () => await _recipesService.CreateRecipeAsync(Recipe.Create(command.Id, command.Name, command.Description, command.RecipeRatingId, command.UserId), command.IngredientsIds))
+                .Handle(async () => await _recipesService.CreateRecipeAsync(Recipe.Create(
+                    id: command.Id,
+                    difficultyLevel: command.DifficultyLevel,
+                    preparationTime: command.PreparationTime,
+                    totalKcal: command.TotalKcal,
+                    description: command.Description,
+                    name: command.Name,
+                    summary: command.Summary,
+                    userId: command.UserId), command.RecipeIngredients))
                 .ExecuteAsync();
     }
 }

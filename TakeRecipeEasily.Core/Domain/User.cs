@@ -10,6 +10,7 @@ namespace TakeRecipeEasily.Core.Domain
         public string Email { get; private set; }
         public string HashedPassword { get; private set; }
 
+        public virtual ICollection<RecipeRating> RecipesRatings { get; private set; }
         public virtual ICollection<Recipe> Recipes { get; private set; }
 
         private User() { }

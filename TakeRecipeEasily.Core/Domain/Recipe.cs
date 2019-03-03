@@ -5,36 +5,62 @@ namespace TakeRecipeEasily.Core.Domain
 {
     public class Recipe : Entity
     {
-        public string Name { get; private set; }
+        public int DifficultyLevel { get; private set; }
+        public int PreparationTime { get; private set; }
+        public int? TotalKcal { get; private set; }
         public string Description { get; private set; }
-        public Guid RecipeRatingId { get; private set; }
+        public string Name { get; private set; }
+        public string Summary { get; private set; }
         public Guid UserId { get; private set; }
 
-        public RecipeRating RecipeRating { get; private set; }
         public User User { get; private set; }
-        public virtual ICollection<RecipeIngredient> RecipesIngredients { get; private set; }
+        public virtual ICollection<RecipeIngredient> RecipeIngredients { get; private set; }
+        public virtual ICollection<RecipeImage> RecipeImages { get; private set; }
+        public virtual ICollection<RecipeRating> RecipeRatings { get; private set; }
 
         private Recipe() {}
 
-        private Recipe(Guid id, string name, string description, Guid recipeRatingId, Guid userId)
+        private Recipe(Guid id, int difficultyLevel, int preparationTime, int? totalKcal, string description, string name, string summary, Guid userId)
         {
             Id = id;
-            Name = name;
+            DifficultyLevel = difficultyLevel;
+            PreparationTime = preparationTime;
+            TotalKcal = totalKcal;
             Description = description;
-            RecipeRatingId = recipeRatingId;
+            Name = name;
+            Summary = summary;
             UserId = userId;
         }
 
-        public static Recipe Create(Guid id, string name, string description, Guid recipeRatingId, Guid userId)
-            => new Recipe(id, name, description, recipeRatingId, userId);
+        public static Recipe Create(
+            Guid id,
+            int difficultyLevel,
+            int preparationTime,
+            int? totalKcal,
+            string description,
+            string name,
+            string summary,
+            Guid userId)
+            => new Recipe(
+                id: id,
+                difficultyLevel: difficultyLevel,
+                preparationTime: preparationTime,
+                totalKcal: totalKcal,
+                description: description,
+                name: name,
+                summary: summary,
+                userId: userId);
 
-        public void Update(string name, string description)
+        public void Update(int difficultyLevel, int preparationTime, int? totalKcal, string description, string name, string summary)
         {
-            Name = name;
+            DifficultyLevel = difficultyLevel;
+            PreparationTime = preparationTime;
+            TotalKcal = totalKcal;
             Description = description;
+            Name = name;
+            Summary = summary;
         }
 
-        public void AddRecipeIngredients(IEnumerable<Guid> ingredientsIds)
-            => RecipesIngredients = RecipeIngredient.Create(Id, ingredientsIds);
+        public void AddRecipeIngredients(ICollection<RecipeIngredient> recipeIngredients) => RecipeIngredients = recipeIngredients;
     }
 }
