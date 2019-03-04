@@ -8,7 +8,6 @@ using TakeRecipeEasily.Infrastructure.Services;
 
 namespace TakeRecipeEasily.Api.Controllers
 {
-    [Authorized]
     [Route("recipes")]
     public class RecipesController : ApiControllerBase
     {
@@ -17,14 +16,17 @@ namespace TakeRecipeEasily.Api.Controllers
         public RecipesController(ICommandsBus commandsBus, IRecipesQueryService recipesQueryService) : base(commandsBus)
             => _recipesQueryService = recipesQueryService;
 
+        [Authorized]
         [HttpPost("")]
         public async Task<IActionResult> CreateRecipeAsync([FromBody] CreateRecipeCommand command)
             => await RunAsync(command, _ => _recipesQueryService.GetRecipeAsync(command.Id));
 
+        [Authorized]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateRecipeAsync([FromBody] UpdateRecipeCommand command)
             => await RunAsync(command, _ => _recipesQueryService.GetRecipeAsync(command.Id));
 
+        [Authorized]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRecipeAsync([FromBody] DeleteRecipeCommand command)
             => await RunAsync(command);

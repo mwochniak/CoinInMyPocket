@@ -21,7 +21,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
         {
             using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                recipe.AddRecipeIngredients(recipeIngredients.ToList().Select(ri => RecipeIngredient.Create(recipeId: ri.RecipeId, unit: ri.Unit, quantity: ri.Quantity, ingredientId: ri.IngredientId)).ToHashSet());
+                recipe.AddRecipeIngredients(recipeIngredients.ToList().Select(ri => RecipeIngredient.Create(recipeId: recipe.Id , unit: ri.Unit, quantity: ri.Quantity, ingredientId: ri.IngredientId)).ToHashSet());
                 await _dbContext.Recipes.AddAsync(recipe);
 
                 await _dbContext.SaveChangesAsync();
