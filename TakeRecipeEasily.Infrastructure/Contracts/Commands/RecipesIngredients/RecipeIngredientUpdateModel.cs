@@ -6,14 +6,12 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.RecipesIngredients
     public sealed class RecipeIngredientUpdateModel
     {
         public int Quantity { get; }
-        public Guid RecipeId { get; }
         public Guid IngredientId { get; }
         public Unit Unit { get; }
 
-        public RecipeIngredientUpdateModel(int quantity, Guid recipeId, Guid ingredientId, Unit unit)
+        public RecipeIngredientUpdateModel(int quantity, Guid ingredientId, Unit unit)
         {
             Quantity = quantity;
-            RecipeId = recipeId;
             IngredientId = ingredientId;
             Unit = unit;
         }

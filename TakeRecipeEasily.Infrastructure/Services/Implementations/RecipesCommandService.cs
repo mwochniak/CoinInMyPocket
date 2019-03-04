@@ -56,7 +56,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 var recipeIngredients = await _dbContext.RecipesIngredients.Where(ri => ri.RecipeId == recipeUpdateModel.Id).ToListAsync();
 
                 var recipeIngredientsUpdateModelsToAdd = recipeUpdateModel.RecipeIngredients.Where(r => !recipeIngredients.Select(ri => ri.IngredientId).Contains(r.IngredientId)).ToList();
-                var recipeIngredientsToAdd = recipeIngredientsUpdateModelsToAdd.Select(ri => RecipeIngredient.Create(recipeId: ri.RecipeId, unit: ri.Unit, quantity: ri.Quantity, ingredientId: ri.IngredientId)).ToList();
+                var recipeIngredientsToAdd = recipeIngredientsUpdateModelsToAdd.Select(ri => RecipeIngredient.Create(recipeId: recipeUpdateModel.Id, unit: ri.Unit, quantity: ri.Quantity, ingredientId: ri.IngredientId)).ToList();
                 var recipeIngredientsToRemove = recipeIngredients.Where(ri => !recipeUpdateModel.RecipeIngredients.Select(uri => uri.IngredientId).ToList().Contains(ri.IngredientId)).ToList();
 
                 recipe.Update(
