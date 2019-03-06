@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using TakeRecipeEasily.Core.Domain;
-using TakeRecipeEasily.Core.UpdateModels.Ingredients;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.Ingredients;
 
 namespace TakeRecipeEasily.Infrastructure.Services
 {

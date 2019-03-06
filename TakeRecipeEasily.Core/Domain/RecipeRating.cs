@@ -25,5 +25,11 @@ namespace TakeRecipeEasily.Core.Domain
 
         public static RecipeRating Create(Guid id, int rate, Guid recipeId, Guid userId, string comment)
             => new RecipeRating(id: id, rate: rate, recipeId: recipeId, userId: userId, comment: comment);
+
+        public void Update(int rate, string comment)
+        {
+            Rate = rate;
+            Comment = comment;
+        }
     }
 }

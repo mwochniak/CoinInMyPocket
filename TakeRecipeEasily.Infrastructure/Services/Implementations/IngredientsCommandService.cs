@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
 using TakeRecipeEasily.Core.Domain;
-using TakeRecipeEasily.Core.UpdateModels.Ingredients;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.Ingredients;
 using TakeRecipeEasily.Infrastructure.SQL;
 
 namespace TakeRecipeEasily.Infrastructure.Services.Implementations

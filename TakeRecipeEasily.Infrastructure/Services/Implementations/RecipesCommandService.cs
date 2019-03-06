@@ -66,7 +66,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                     description: recipeUpdateModel.Description,
                     name: recipeUpdateModel.Name,
                     summary: recipeUpdateModel.Summary);
-                _dbContext.Update(recipe);
+                _dbContext.Recipes.Update(recipe);
 
                 await _dbContext.RecipesIngredients.AddRangeAsync(recipeIngredientsToAdd);
                 _dbContext.RemoveRange(recipeIngredientsToRemove);

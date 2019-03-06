@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace TakeRecipeEasily.Core.UpdateModels.Ingredients
+namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.Ingredients
 {
-    public class IngredientUpdateModel
+    public sealed class IngredientUpdateModel
     {
         public Guid Id { get; }
         public string Name { get; }

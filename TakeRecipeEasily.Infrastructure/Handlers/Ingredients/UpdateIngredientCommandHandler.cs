@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using TakeRecipeEasily.Core.Domain;
-using TakeRecipeEasily.Core.UpdateModels.Ingredients;
+﻿using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Ingredients;
 using TakeRecipeEasily.Infrastructure.Services;
 using TakeRecipeEasily.Infrastructure.Validation.CommandModelsValidation;

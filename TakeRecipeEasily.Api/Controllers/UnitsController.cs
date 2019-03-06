@@ -7,6 +7,7 @@ using TakeRecipeEasily.Core.Domain;
 namespace TakeRecipeEasily.Api.Controllers
 {
     [Authorize]
+    [Route("units")]
     public class UnitsController : ApiControllerBase
     {
         public UnitsController(Infrastructure.Busses.ICommandsBus commandsBus) : base(commandsBus)
@@ -14,7 +15,7 @@ namespace TakeRecipeEasily.Api.Controllers
         }
 
         [HttpGet("")]
-        public Task<Array> GetUnitsAsync()
-            => Task.FromResult(Enum.GetValues(typeof(Unit)));
+        public Task<string[]> GetUnitsAsync()
+            => Task.FromResult(Enum.GetNames(typeof(Unit)));
     }
 }

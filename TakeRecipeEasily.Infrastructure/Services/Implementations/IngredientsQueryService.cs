@@ -19,7 +19,8 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
             {
                 Id = i.Id,
                 IngredientCategoryId = i.IngredientCategoryId,
-                Name = i.Name
+                Name = i.Name,
+                IngredientCategoryName = i.IngredientCategory.Name
             })
             .SingleOrDefaultAsync(i => i.Id == ingredientId);
 
@@ -28,7 +29,8 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
             {
                 Id = i.Id,
                 IngredientCategoryId = i.IngredientCategoryId,
-                Name = i.Name
+                Name = i.Name,
+                IngredientCategoryName = i.IngredientCategory.Name
             })
             .ToListAsync();
     }

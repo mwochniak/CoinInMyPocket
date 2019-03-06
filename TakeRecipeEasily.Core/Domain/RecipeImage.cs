@@ -23,7 +23,10 @@ namespace TakeRecipeEasily.Core.Domain
         public static RecipeImage Create(Guid id, byte[] content, Guid recipeId, bool isDefault)
             => new RecipeImage(id: id, content: content, recipeId: recipeId, isDefault: isDefault);
 
-        public void Update(bool isDefault)
-            => IsDefault = isDefault;
+        public void Update(bool isDefault, byte[] content)
+        {
+            IsDefault = isDefault;
+            Content = content;
+        }
     }
 }

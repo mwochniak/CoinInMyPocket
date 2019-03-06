@@ -11,6 +11,7 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Recipes
         public int DifficultyLevel { get; set; }
         public int PreparationTime { get; set; }
         public int? TotalKcal { get; set; }
+        public int AverageRate { get; set; }
         public Guid UserId { get; set; }
         public string Description { get; set; }
         public string Name { get; set; }
