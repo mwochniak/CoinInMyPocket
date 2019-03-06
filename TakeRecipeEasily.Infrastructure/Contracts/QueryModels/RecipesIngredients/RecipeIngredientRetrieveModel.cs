@@ -1,5 +1,4 @@
 ﻿using System;
-using TakeRecipeEasily.Core.Domain;
 
 namespace TakeRecipeEasily.Infrastructure.Contracts.QueryModels.RecipesIngredients
 {
@@ -8,6 +7,7 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.QueryModels.RecipesIngredien
         public int Quantity { get; set; }
         public Guid RecipeId { get; set; }
         public Guid IngredientId { get; set; }
-        public Unit Unit { get; set; }
+        public string UnitName { get; set; }
+        public string IngredientName { get; set; }
     }
 }

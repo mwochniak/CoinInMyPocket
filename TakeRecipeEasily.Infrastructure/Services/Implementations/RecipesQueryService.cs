@@ -3,9 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Recipes;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.RecipesIngredients;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.RecipesRatings;
+using TakeRecipeEasily.Infrastructure.Extensions;
 using TakeRecipeEasily.Infrastructure.SQL;
 
 namespace TakeRecipeEasily.Infrastructure.Services.Implementations
@@ -17,7 +19,8 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
         public RecipesQueryService(DatabaseContext dbContext) => _dbContext = dbContext;
 
         public async Task<RecipeRetrieveModel> GetRecipeAsync(Guid recipeId)
-            => await _dbContext.Recipes.Where(r => r.Id == recipeId).Select(r => new RecipeRetrieveModel()
+        {
+            var recipe = await _dbContext.Recipes.Where(r => r.Id == recipeId).Select(r => new RecipeRetrieveModel()
             {
                 Id = r.Id,
                 DifficultyLevel = r.DifficultyLevel,
@@ -30,7 +33,8 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 {
                     IngredientId = ri.Ingredient.Id,
                     Quantity = ri.Quantity,
-                    Unit = ri.Unit,
+                    UnitName = Enum.GetName(typeof(Unit), ri.Unit),
+                    IngredientName = ri.Ingredient.Name,
                     RecipeId = ri.Recipe.Id
                 }),
                 RecipeRatings = r.RecipeRatings.Select(rr => new RecipeRatingRetrieveModel()
@@ -47,8 +51,14 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
             })
             .SingleOrDefaultAsync();
 
+            recipe.AverageRate = recipe.RecipeRatings.Select(rr => rr.Rate).CalculateAvegare();
+
+            return recipe;
+        }
+
         public async Task<IEnumerable<RecipeRetrieveModel>> GetRecipesAsync()
-            => await _dbContext.Recipes.Select(r => new RecipeRetrieveModel()
+        {
+            var recipes = await _dbContext.Recipes.Select(r => new RecipeRetrieveModel()
             {
                 Id = r.Id,
                 DifficultyLevel = r.DifficultyLevel,
@@ -61,7 +71,8 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 {
                     IngredientId = ri.Ingredient.Id,
                     Quantity = ri.Quantity,
-                    Unit = ri.Unit,
+                    UnitName = Enum.GetName(typeof(Unit), ri.Unit),
+                    IngredientName = ri.Ingredient.Name,
                     RecipeId = ri.Recipe.Id
                 }),
                 RecipeRatings = r.RecipeRatings.Select(rr => new RecipeRatingRetrieveModel()
@@ -76,5 +87,10 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 UserFullName = r.User.FirstName + " " + r.User.LastName
             })
             .ToListAsync();
+
+            recipes.ForEach(r => r.AverageRate = r.RecipeRatings.Select(rr => rr.Rate).CalculateAvegare());
+
+            return recipes;
+        }
     }
 }
