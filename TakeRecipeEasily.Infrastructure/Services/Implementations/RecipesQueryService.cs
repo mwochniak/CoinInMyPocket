@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Ingredients;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Recipes;
+using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.RecipesIngredients;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.RecipesRatings;
 using TakeRecipeEasily.Infrastructure.SQL;
 
@@ -23,18 +23,20 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 DifficultyLevel = r.DifficultyLevel,
                 PreparationTime = r.PreparationTime,
                 TotalKcal = r.TotalKcal,
+                AverageRate = r.RecipeRatings.Any() ? r.RecipeRatings.Select(rr => rr.Rate).Average() : 0,
                 Description = r.Description,
                 Name = r.Name,
                 Summary = r.Summary,
-                Ingredients = r.RecipeIngredients.Select(ri => new IngredientRetrieveModel()
+                RecipeIngredients = r.RecipeIngredients.Select(ri => new RecipeIngredientRetrieveModel()
                 {
-                    Id = ri.Ingredient.Id,
-                    IngredientCategoryId = ri.Ingredient.IngredientCategoryId,
-                    IngredientCategoryName = ri.Ingredient.IngredientCategory.Name,
-                    Name = ri.Ingredient.Name
+                    IngredientId = ri.Ingredient.Id,
+                    Quantity = ri.Quantity,
+                    Unit = ri.Unit,
+                    RecipeId = ri.Recipe.Id
                 }),
-                RecipesRatings = r.RecipeRatings.Select(rr => new RecipeRatingRetrieveModel()
+                RecipeRatings = r.RecipeRatings.Select(rr => new RecipeRatingRetrieveModel()
                 {
+                    Id = rr.Id,
                     RecipeId = rr.RecipeId,
                     Rate = rr.Rate,
                     Comment = rr.Comment,
@@ -53,17 +55,18 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 DifficultyLevel = r.DifficultyLevel,
                 PreparationTime = r.PreparationTime,
                 TotalKcal = r.TotalKcal,
+                AverageRate = r.RecipeRatings.Any() ? r.RecipeRatings.Select(rr => rr.Rate).Average() : 0,
                 Description = r.Description,
                 Name = r.Name,
                 Summary = r.Summary,
-                Ingredients = r.RecipeIngredients.Select(ri => new IngredientRetrieveModel()
+                RecipeIngredients = r.RecipeIngredients.Select(ri => new RecipeIngredientRetrieveModel()
                 {
-                    Id = ri.Ingredient.Id,
-                    IngredientCategoryId = ri.Ingredient.IngredientCategoryId,
-                    IngredientCategoryName = ri.Ingredient.IngredientCategory.Name,
-                    Name = ri.Ingredient.Name
+                    IngredientId = ri.Ingredient.Id,
+                    Quantity = ri.Quantity,
+                    Unit = ri.Unit,
+                    RecipeId = ri.Recipe.Id
                 }),
-                RecipesRatings = r.RecipeRatings.Select(rr => new RecipeRatingRetrieveModel()
+                RecipeRatings = r.RecipeRatings.Select(rr => new RecipeRatingRetrieveModel()
                 {
                     RecipeId = rr.RecipeId,
                     Rate = rr.Rate,

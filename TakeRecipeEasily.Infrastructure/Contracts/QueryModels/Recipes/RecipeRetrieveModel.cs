@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Ingredients;
+using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.RecipesIngredients;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.RecipesRatings;
 
 namespace TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Recipes
@@ -11,13 +11,13 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Recipes
         public int DifficultyLevel { get; set; }
         public int PreparationTime { get; set; }
         public int? TotalKcal { get; set; }
-        public int AverageRate { get; set; }
+        public double AverageRate { get; set; }
         public Guid UserId { get; set; }
         public string Description { get; set; }
         public string Name { get; set; }
         public string Summary { get; set; }
         public string UserFullName { get; set; }
-        public IEnumerable<IngredientRetrieveModel> Ingredients { get; set; }
-        public IEnumerable<RecipeRatingRetrieveModel> RecipesRatings { get; set; }
+        public IEnumerable<RecipeIngredientRetrieveModel> RecipeIngredients { get; set; }
+        public IEnumerable<RecipeRatingRetrieveModel> RecipeRatings { get; set; }
     }
 }

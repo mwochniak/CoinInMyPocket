@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using TakeRecipeEasily.Core.Domain;
+using TakeRecipeEasily.Infrastructure.Busses;
 
 namespace TakeRecipeEasily.Api.Controllers
 {
@@ -10,7 +11,7 @@ namespace TakeRecipeEasily.Api.Controllers
     [Route("units")]
     public class UnitsController : ApiControllerBase
     {
-        public UnitsController(Infrastructure.Busses.ICommandsBus commandsBus) : base(commandsBus)
+        public UnitsController(ICommandsBus commandsBus) : base(commandsBus)
         {
         }
 
