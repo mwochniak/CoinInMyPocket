@@ -38,5 +38,15 @@ namespace TakeRecipeEasily.Api.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetRecipesAsync()
             => Ok(await _recipesQueryService.GetRecipesAsync());
+
+        [Authorized]
+        [HttpGet("users/current")]
+        public async Task<IActionResult> GetUserRecipesAsync()
+        {
+            if (UserId.HasValue)
+                return Ok(await _recipesQueryService.GetUserRecipesAsync(UserId.Value));
+            else
+                return BadRequest();
+        }
     }
 }

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.RecipesRatings;
 using TakeRecipeEasily.Infrastructure.SQL;
@@ -21,7 +20,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 Id = rr.Id,
                 Comment = rr.Comment,
                 Rate = rr.Rate,
-                UserFullName = rr.User.FirstName + " " + rr.User.LastName,
+                UserFullName = $"{rr.User.FirstName} {rr.User.LastName}",
                 UserId = rr.UserId
             })
             .ToListAsync();
