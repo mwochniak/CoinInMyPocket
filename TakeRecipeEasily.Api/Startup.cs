@@ -13,6 +13,7 @@ using TakeRecipeEasily.Infrastructure.Contracts.Commands.Auth;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Ingredients;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.IngredientsCategories;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.RecipesRatings;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Users;
 using TakeRecipeEasily.Infrastructure.Exceptions;
 using TakeRecipeEasily.Infrastructure.Handlers;
@@ -20,6 +21,7 @@ using TakeRecipeEasily.Infrastructure.Handlers.Auth;
 using TakeRecipeEasily.Infrastructure.Handlers.Ingredients;
 using TakeRecipeEasily.Infrastructure.Handlers.IngredientsCategories;
 using TakeRecipeEasily.Infrastructure.Handlers.Recipes;
+using TakeRecipeEasily.Infrastructure.Handlers.RecipesRatings;
 using TakeRecipeEasily.Infrastructure.Handlers.Users;
 using TakeRecipeEasily.Infrastructure.IoC;
 using TakeRecipeEasily.Infrastructure.Services;
@@ -60,6 +62,8 @@ namespace TakeRecipeEasily.Api
                     builder.RegisterService<IngredientsQueryService, IIngredientsQueryService>();
                     builder.RegisterService<RecipesCommandService, IRecipesCommandService>();
                     builder.RegisterService<RecipesQueryService, IRecipesQueryService>();
+                    builder.RegisterService<RecipesRatingsCommandService, IRecipesRatingsCommandService>();
+                    builder.RegisterService<RecipesRatingsQueryService, IRecipesRatingsQueryService>();
                     builder.RegisterService<UsersCommandService, IUsersCommandService>();
                     builder.RegisterService<UsersQueryService, IUsersQueryService>();
 
@@ -69,11 +73,14 @@ namespace TakeRecipeEasily.Api
                 .RespondToCommand<CreateIngredientCategoryCommand, CreateIngredientCategoryCommandHandler>()
                 .RespondToCommand<CreateIngredientCommand, CreateIngredientCommandHandler>()
                 .RespondToCommand<CreateRecipeCommand, CreateRecipeCommandHandler>()
+                .RespondToCommand<CreateRecipeRatingCommand, CreateRecipeRatingCommandHandler>()
                 .RespondToCommand<CreateUserCommand, CreateUserCommandHandler>()
                 .RespondToCommand<DeleteRecipeCommand, DeleteRecipeCommandHandler>()
+                .RespondToCommand<DeleteRecipeRatingCommand, DeleteRecipeRatingCommandHandler>()
                 .RespondToCommand<LoginCommand, LoginCommandHandler>()
                 .RespondToCommand<UpdateIngredientCommand, UpdateIngredientCommandHandler>()
                 .RespondToCommand<UpdateRecipeCommand, UpdateRecipeCommandHandler>()
+                .RespondToCommand<UpdateRecipeRatingCommand, UpdateRecipeRatingCommandHandler>()
                 .WithCommandsBus()
                 .WithEventsBus()
                 .Build();

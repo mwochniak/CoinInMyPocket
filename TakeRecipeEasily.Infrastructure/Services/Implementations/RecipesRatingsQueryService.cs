@@ -14,6 +14,17 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
 
         public RecipesRatingsQueryService(DatabaseContext dbContext) => _dbContext = dbContext;
 
+        public async Task<RecipeRatingRetrieveModel> GetRecipeRatingAsync(Guid id)
+            => await _dbContext.RecipesRatings.Where(rr => rr.Id == id).Select(rr => new RecipeRatingRetrieveModel()
+            {
+                Id = rr.Id,
+                Comment = rr.Comment,
+                Rate = rr.Rate,
+                UserFullName = $"{rr.User.FirstName} {rr.User.LastName}",
+                UserId = rr.UserId
+            })
+            .SingleOrDefaultAsync();
+
         public async Task<IEnumerable<RecipeRatingRetrieveModel>> GetRecipeRatingsAsync(Guid recipeId)
             => await _dbContext.RecipesRatings.Where(rr => rr.RecipeId == recipeId).Select(rr => new RecipeRatingRetrieveModel()
             {

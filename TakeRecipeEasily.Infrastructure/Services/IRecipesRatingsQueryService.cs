@@ -7,6 +7,8 @@ namespace TakeRecipeEasily.Infrastructure.Services
 {
     public interface IRecipesRatingsQueryService : IServisable
     {
+        Task<RecipeRatingRetrieveModel> GetRecipeRatingAsync(Guid id);
+
         Task<IEnumerable<RecipeRatingRetrieveModel>> GetRecipeRatingsAsync(Guid recipeId);
     }
 }
