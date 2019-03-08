@@ -20,6 +20,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 Id = rr.Id,
                 Comment = rr.Comment,
                 Rate = rr.Rate,
+                RecipeId = rr.RecipeId,
                 UserFullName = $"{rr.User.FirstName} {rr.User.LastName}",
                 UserId = rr.UserId
             })
@@ -31,6 +32,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 Id = rr.Id,
                 Comment = rr.Comment,
                 Rate = rr.Rate,
+                RecipeId = rr.RecipeId,
                 UserFullName = $"{rr.User.FirstName} {rr.User.LastName}",
                 UserId = rr.UserId
             })
