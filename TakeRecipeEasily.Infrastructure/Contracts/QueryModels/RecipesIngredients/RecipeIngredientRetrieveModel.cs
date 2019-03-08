@@ -4,7 +4,7 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.QueryModels.RecipesIngredien
 {
     public class RecipeIngredientRetrieveModel
     {
-        public int Quantity { get; set; }
+        public double Quantity { get; set; }
         public Guid RecipeId { get; set; }
         public Guid IngredientId { get; set; }
         public string UnitName { get; set; }

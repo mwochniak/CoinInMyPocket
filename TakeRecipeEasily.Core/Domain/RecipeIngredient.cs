@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace TakeRecipeEasily.Core.Domain
 {
     public sealed class RecipeIngredient
     {
-        public int Quantity { get; private set; }
+        public double Quantity { get; private set; }
         public Guid RecipeId { get; private set; }
         public Guid IngredientId { get; private set; }
         public Unit Unit { get; private set; }
@@ -16,7 +14,7 @@ namespace TakeRecipeEasily.Core.Domain
 
         public RecipeIngredient() { }
 
-        private RecipeIngredient(Guid recipeId, Guid ingredientId, Unit unit, int quantity)
+        private RecipeIngredient(Guid recipeId, Guid ingredientId, Unit unit, double quantity)
         {
             RecipeId = recipeId;
             IngredientId = ingredientId;
@@ -24,7 +22,7 @@ namespace TakeRecipeEasily.Core.Domain
             Quantity = quantity;
         }
 
-        public static RecipeIngredient Create(Guid recipeId, Unit unit, int quantity, Guid ingredientId)
+        public static RecipeIngredient Create(Guid recipeId, Unit unit, double quantity, Guid ingredientId)
             =>  new RecipeIngredient(recipeId: recipeId, ingredientId: ingredientId, unit: unit, quantity: quantity);
     }
 }
