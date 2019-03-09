@@ -2,7 +2,7 @@
 using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Ingredients;
 
-namespace TakeRecipeEasily.Infrastructure.Services
+namespace TakeRecipeEasily.Infrastructure.Services.Ingredients
 {
     public interface IIngredientsCommandService : IServisable
     {

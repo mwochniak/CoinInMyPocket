@@ -8,7 +8,7 @@ using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.RecipesRatings;
 using TakeRecipeEasily.Infrastructure.SQL;
 
-namespace TakeRecipeEasily.Infrastructure.Services.Implementations
+namespace TakeRecipeEasily.Infrastructure.Services.RecipesRatings
 {
     public class RecipesRatingsCommandService : IRecipesRatingsCommandService
     {

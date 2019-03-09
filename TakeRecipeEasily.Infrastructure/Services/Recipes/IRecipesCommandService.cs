@@ -5,7 +5,7 @@ using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.RecipesIngredients;
 
-namespace TakeRecipeEasily.Infrastructure.Services
+namespace TakeRecipeEasily.Infrastructure.Services.Recipes
 {
     public interface IRecipesCommandService : IServisable
     {

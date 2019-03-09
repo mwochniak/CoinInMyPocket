@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Ingredients;
 using TakeRecipeEasily.Infrastructure.SQL;
 
-namespace TakeRecipeEasily.Infrastructure.Services.Implementations
+namespace TakeRecipeEasily.Infrastructure.Services.Ingredients
 {
     public class IngredientsQueryService : IIngredientsQueryService
     {
@@ -26,6 +26,16 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
 
         public async Task<IEnumerable<IngredientRetrieveModel>> GetIngredientsAsync()
             => await _dbContext.Ingredients.Select(i => new IngredientRetrieveModel()
+            {
+                Id = i.Id,
+                IngredientCategoryId = i.IngredientCategoryId,
+                Name = i.Name,
+                IngredientCategoryName = i.IngredientCategory.Name
+            })
+            .ToListAsync();
+
+        public async Task<IEnumerable<IngredientRetrieveModel>> GetIngredientsAsync(string phrase)
+            => await _dbContext.Ingredients.Where(i => i.Name.Contains(phrase)).Select(i => new IngredientRetrieveModel()
             {
                 Id = i.Id,
                 IngredientCategoryId = i.IngredientCategoryId,

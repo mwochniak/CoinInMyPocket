@@ -19,7 +19,7 @@ namespace TakeRecipeEasily.Infrastructure.Validation.CommandModelsValidation
                 .For(command)
                 .Validate();
 
-            result.Succeeded.ThrowIfFalse(ErrorType.BadRequest, string.Join(" ", result.ErrorMessages));
+            result.Succeeded.ThrowIfFalse(ErrorType.BadRequest);
         }
 
         internal static void UpdateIngredientCommandValidation(UpdateIngredientCommand command)
@@ -37,7 +37,7 @@ namespace TakeRecipeEasily.Infrastructure.Validation.CommandModelsValidation
                 .For(command)
                 .Validate();
 
-            result.Succeeded.ThrowIfFalse(ErrorType.BadRequest, string.Join(" ", result.ErrorMessages));
+            result.Succeeded.ThrowIfFalse(ErrorType.BadRequest);
         }
     }
 }

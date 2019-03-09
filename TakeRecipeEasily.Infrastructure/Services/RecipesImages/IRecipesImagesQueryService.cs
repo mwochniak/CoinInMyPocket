@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.RecipesImages;
 
-namespace TakeRecipeEasily.Infrastructure.Services
+namespace TakeRecipeEasily.Infrastructure.Services.RecipesImages
 {
     public interface IRecipesImagesQueryService : IServisable
     {
+        Task<RecipeImageRetrieveModel> GetRecipeImageAsync(Guid id);
         Task<RecipeImageRetrieveModel> GetDefaultRecipeImageAsync(Guid recipeId);
-        Task<IEnumerable<RecipeImageRetrieveModel>> GetRecipeImagesAsync(Guid recipeId);
     }
 }

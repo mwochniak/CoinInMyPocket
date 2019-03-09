@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.IngredientsCategories;
-using TakeRecipeEasily.Infrastructure.Services;
+using TakeRecipeEasily.Infrastructure.Services.IngredientsCategories;
 using TakeRecipeEasily.Infrastructure.Validation.CommandModelsValidation;
 
 namespace TakeRecipeEasily.Infrastructure.Handlers.IngredientsCategories

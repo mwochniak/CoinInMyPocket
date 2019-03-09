@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Recipes;
+using TakeRecipeEasily.Infrastructure.Filters;
 
-namespace TakeRecipeEasily.Infrastructure.Services
+namespace TakeRecipeEasily.Infrastructure.Services.Recipes
 {
     public interface IRecipesQueryService : IServisable
     {
@@ -11,5 +12,6 @@ namespace TakeRecipeEasily.Infrastructure.Services
 
         Task<IEnumerable<RecipeRetrieveModel>> GetRecipesAsync();
         Task<IEnumerable<RecipeRetrieveModel>> GetUserRecipesAsync(Guid userId);
+        Task<IEnumerable<RecipeRetrieveModel>> GetRecipesAsync(RecipeFilters recipeFilters);
     }
 }

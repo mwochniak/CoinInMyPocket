@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
 using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.RecipesImages;
 using TakeRecipeEasily.Infrastructure.SQL;
 
-namespace TakeRecipeEasily.Infrastructure.Services.Implementations
+namespace TakeRecipeEasily.Infrastructure.Services.RecipesImages
 {
     public class RecipesImagesCommandService : IRecipesImagesCommandService
     {
@@ -21,7 +20,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
         {
             using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
-                var recipeImages = recipeImageCreateModels.Select(ri => RecipeImage.Create(id: ri.Id, content: ri.Content, recipeId: recipeId, isDefault: ri.IsDefault));
+                var recipeImages = recipeImageCreateModels.Select(ri => RecipeImage.Create(id: ri.Id, content: ri.Content, recipeId: recipeId, isDefault: ri.IsDefault, contentType: ri.ContentType));
                 await _dbContext.RecipesImages.AddRangeAsync(recipeImages);
                 await _dbContext.SaveChangesAsync();
                 transactionScope.Complete();
@@ -45,7 +44,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
             using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 var recipeImages = await GetAsync(recipeImageUpdateModels.Select(ri => ri.Id));
-                recipeImages.ToList().ForEach(ri => ri.Update(isDefault: recipeImageUpdateModels.SingleOrDefault(um => um.Id == ri.Id).IsDefault, content: recipeImageUpdateModels.SingleOrDefault(um => um.Id == ri.Id).Content));
+                recipeImages.ToList().ForEach(ri => ri.Update(isDefault: recipeImageUpdateModels.SingleOrDefault(um => um.Id == ri.Id).IsDefault, content: recipeImageUpdateModels.SingleOrDefault(um => um.Id == ri.Id).Content, contentType: recipeImageUpdateModels.SingleOrDefault(um => um.Id == ri.Id).ContentType));
                 _dbContext.UpdateRange(recipeImages);
                 await _dbContext.SaveChangesAsync();
                 transactionScope.Complete();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.IngredientsCategories;
 
-namespace TakeRecipeEasily.Infrastructure.Services
+namespace TakeRecipeEasily.Infrastructure.Services.IngredientsCategories
 {
     public interface IIngredientsCategoriesQueryService : IServisable
     {

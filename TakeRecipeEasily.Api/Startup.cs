@@ -13,6 +13,7 @@ using TakeRecipeEasily.Infrastructure.Contracts.Commands.Auth;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Ingredients;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.IngredientsCategories;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes;
+using TakeRecipeEasily.Infrastructure.Contracts.Commands.RecipesImages;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.RecipesRatings;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Users;
 using TakeRecipeEasily.Infrastructure.Exceptions;
@@ -21,11 +22,18 @@ using TakeRecipeEasily.Infrastructure.Handlers.Auth;
 using TakeRecipeEasily.Infrastructure.Handlers.Ingredients;
 using TakeRecipeEasily.Infrastructure.Handlers.IngredientsCategories;
 using TakeRecipeEasily.Infrastructure.Handlers.Recipes;
+using TakeRecipeEasily.Infrastructure.Handlers.RecipesImages;
 using TakeRecipeEasily.Infrastructure.Handlers.RecipesRatings;
 using TakeRecipeEasily.Infrastructure.Handlers.Users;
 using TakeRecipeEasily.Infrastructure.IoC;
 using TakeRecipeEasily.Infrastructure.Services;
 using TakeRecipeEasily.Infrastructure.Services.Implementations;
+using TakeRecipeEasily.Infrastructure.Services.Ingredients;
+using TakeRecipeEasily.Infrastructure.Services.IngredientsCategories;
+using TakeRecipeEasily.Infrastructure.Services.Recipes;
+using TakeRecipeEasily.Infrastructure.Services.RecipesImages;
+using TakeRecipeEasily.Infrastructure.Services.RecipesRatings;
+using TakeRecipeEasily.Infrastructure.Services.Users;
 using TakeRecipeEasily.Infrastructure.Settings;
 using TakeRecipeEasily.Infrastructure.SQL;
 
@@ -62,6 +70,8 @@ namespace TakeRecipeEasily.Api
                     builder.RegisterService<IngredientsQueryService, IIngredientsQueryService>();
                     builder.RegisterService<RecipesCommandService, IRecipesCommandService>();
                     builder.RegisterService<RecipesQueryService, IRecipesQueryService>();
+                    builder.RegisterService<RecipesImagesCommandService, IRecipesImagesCommandService>();
+                    builder.RegisterService<RecipesImagesQueryService, IRecipesImagesQueryService>();
                     builder.RegisterService<RecipesRatingsCommandService, IRecipesRatingsCommandService>();
                     builder.RegisterService<RecipesRatingsQueryService, IRecipesRatingsQueryService>();
                     builder.RegisterService<UsersCommandService, IUsersCommandService>();
@@ -73,13 +83,16 @@ namespace TakeRecipeEasily.Api
                 .RespondToCommand<CreateIngredientCategoryCommand, CreateIngredientCategoryCommandHandler>()
                 .RespondToCommand<CreateIngredientCommand, CreateIngredientCommandHandler>()
                 .RespondToCommand<CreateRecipeCommand, CreateRecipeCommandHandler>()
+                .RespondToCommand<CreateRecipeImagesCommand, CreateRecipeImagesCommandHandler>()
                 .RespondToCommand<CreateRecipeRatingCommand, CreateRecipeRatingCommandHandler>()
                 .RespondToCommand<CreateUserCommand, CreateUserCommandHandler>()
                 .RespondToCommand<DeleteRecipeCommand, DeleteRecipeCommandHandler>()
+                .RespondToCommand<DeleteRecipeImagesCommand, DeleteRecipeImagesCommandHandler>()
                 .RespondToCommand<DeleteRecipeRatingCommand, DeleteRecipeRatingCommandHandler>()
                 .RespondToCommand<LoginCommand, LoginCommandHandler>()
                 .RespondToCommand<UpdateIngredientCommand, UpdateIngredientCommandHandler>()
                 .RespondToCommand<UpdateRecipeCommand, UpdateRecipeCommandHandler>()
+                .RespondToCommand<UpdateRecipeImagesCommand, UpdateRecipeImagesCommandHandler>()
                 .RespondToCommand<UpdateRecipeRatingCommand, UpdateRecipeRatingCommandHandler>()
                 .WithCommandsBus()
                 .WithEventsBus()

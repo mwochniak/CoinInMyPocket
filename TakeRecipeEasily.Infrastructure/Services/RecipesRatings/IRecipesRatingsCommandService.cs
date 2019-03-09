@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.RecipesRatings;
 
-namespace TakeRecipeEasily.Infrastructure.Services
+namespace TakeRecipeEasily.Infrastructure.Services.RecipesRatings
 {
     public interface IRecipesRatingsCommandService : IServisable
     {

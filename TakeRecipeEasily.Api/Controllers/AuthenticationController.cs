@@ -6,6 +6,7 @@ using TakeRecipeEasily.Infrastructure.Busses;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Auth;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Users;
 using TakeRecipeEasily.Infrastructure.Services;
+using TakeRecipeEasily.Infrastructure.Services.Users;
 
 namespace TakeRecipeEasily.Api.Controllers
 {

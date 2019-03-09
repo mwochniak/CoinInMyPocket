@@ -4,7 +4,7 @@ using System.Transactions;
 using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Infrastructure.SQL;
 
-namespace TakeRecipeEasily.Infrastructure.Services.Implementations
+namespace TakeRecipeEasily.Infrastructure.Services.Users
 {
     public class UsersCommandService : IUsersCommandService
     {

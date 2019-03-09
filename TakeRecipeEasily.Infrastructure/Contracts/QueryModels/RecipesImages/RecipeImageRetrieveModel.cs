@@ -8,5 +8,6 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.QueryModels.RecipesImages
         public Guid RecipeId { get; set; }
         public bool IsDefault { get; set; }
         public byte[] Content { get; set; }
+        public string ContentType { get; set; }
     }
 }

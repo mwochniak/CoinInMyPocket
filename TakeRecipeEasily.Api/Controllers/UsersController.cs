@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Authentication.Attributes;
 using TakeRecipeEasily.Infrastructure.Busses;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Users;
-using TakeRecipeEasily.Infrastructure.Services;
+using TakeRecipeEasily.Infrastructure.Services.Users;
 
 namespace TakeRecipeEasily.Api.Controllers
 {

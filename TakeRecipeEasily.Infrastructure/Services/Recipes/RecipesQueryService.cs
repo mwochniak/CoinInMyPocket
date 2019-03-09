@@ -8,9 +8,10 @@ using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Recipes;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.RecipesIngredients;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.RecipesRatings;
 using TakeRecipeEasily.Infrastructure.Extensions;
+using TakeRecipeEasily.Infrastructure.Filters;
 using TakeRecipeEasily.Infrastructure.SQL;
 
-namespace TakeRecipeEasily.Infrastructure.Services.Implementations
+namespace TakeRecipeEasily.Infrastructure.Services.Recipes
 {
     public class RecipesQueryService : IRecipesQueryService
     {
@@ -29,6 +30,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 Description = r.Description,
                 Name = r.Name,
                 Summary = r.Summary,
+                RecipeImages = r.RecipeImages.Select(ri => ri.Id),
                 RecipeIngredients = r.RecipeIngredients.Select(ri => new RecipeIngredientRetrieveModel()
                 {
                     IngredientId = ri.Ingredient.Id,
@@ -67,6 +69,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 Description = r.Description,
                 Name = r.Name,
                 Summary = r.Summary,
+                RecipeImages = r.RecipeImages.Select(ri => ri.Id),
                 RecipeIngredients = r.RecipeIngredients.Select(ri => new RecipeIngredientRetrieveModel()
                 {
                     IngredientId = ri.Ingredient.Id,
@@ -104,6 +107,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 Description = r.Description,
                 Name = r.Name,
                 Summary = r.Summary,
+                RecipeImages = r.RecipeImages.Select(ri => ri.Id),
                 RecipeIngredients = r.RecipeIngredients.Select(ri => new RecipeIngredientRetrieveModel()
                 {
                     IngredientId = ri.Ingredient.Id,
@@ -124,6 +128,48 @@ namespace TakeRecipeEasily.Infrastructure.Services.Implementations
                 UserFullName = r.User.FirstName + " " + r.User.LastName
             })
             .ToListAsync();
+
+            recipes.ForEach(r => r.AverageRate = r.RecipeRatings.Select(rr => rr.Rate).CalculateAvegare());
+
+            return recipes;
+        }
+
+        public async Task<IEnumerable<RecipeRetrieveModel>> GetRecipesAsync(RecipeFilters recipeFilters)
+        {
+            var recipes = await _dbContext.Recipes
+                .Where(r => r.Name.Contains(recipeFilters.Phrase)
+                         && r.PreparationTime > recipeFilters.MinDifficultyLevel
+                         && r.PreparationTime < recipeFilters.MaxDifficultyLevel)
+                .Select(r => new RecipeRetrieveModel()
+                {
+                    Id = r.Id,
+                    DifficultyLevel = r.DifficultyLevel,
+                    PreparationTime = r.PreparationTime,
+                    TotalKcal = r.TotalKcal,
+                    Description = r.Description,
+                    Name = r.Name,
+                    Summary = r.Summary,
+                    RecipeImages = r.RecipeImages.Select(ri => ri.Id),
+                    RecipeIngredients = r.RecipeIngredients.Select(ri => new RecipeIngredientRetrieveModel()
+                    {
+                        IngredientId = ri.Ingredient.Id,
+                        Quantity = ri.Quantity,
+                        UnitName = Enum.GetName(typeof(Unit), ri.Unit),
+                        IngredientName = ri.Ingredient.Name,
+                        RecipeId = ri.Recipe.Id
+                    }),
+                    RecipeRatings = r.RecipeRatings.Select(rr => new RecipeRatingRetrieveModel()
+                    {
+                        RecipeId = rr.RecipeId,
+                        Rate = rr.Rate,
+                        Comment = rr.Comment,
+                        UserFullName = rr.User.FirstName + " " + rr.User.LastName,
+                        UserId = rr.UserId
+                    }),
+                    UserId = r.UserId,
+                    UserFullName = r.User.FirstName + " " + r.User.LastName
+                })
+                .ToListAsync();
 
             recipes.ForEach(r => r.AverageRate = r.RecipeRatings.Select(rr => rr.Rate).CalculateAvegare());
 

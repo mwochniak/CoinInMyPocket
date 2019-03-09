@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Ingredients;
-using TakeRecipeEasily.Infrastructure.Services;
+using TakeRecipeEasily.Infrastructure.Services.Ingredients;
 using TakeRecipeEasily.Infrastructure.Validation.CommandModelsValidation;
 
 namespace TakeRecipeEasily.Infrastructure.Handlers.Ingredients

@@ -17,7 +17,7 @@ namespace TakeRecipeEasily.Infrastructure.Validation.CommandModelsValidation
                 .For(command)
                 .Validate();
 
-            result.Succeeded.ThrowIfFalse(ErrorType.BadRequest, string.Join(" ", result.ErrorMessages));
+            result.Succeeded.ThrowIfFalse(ErrorType.BadRequest);
         }
     }
 }

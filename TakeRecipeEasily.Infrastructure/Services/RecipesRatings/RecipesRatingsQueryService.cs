@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.RecipesRatings;
 using TakeRecipeEasily.Infrastructure.SQL;
 
-namespace TakeRecipeEasily.Infrastructure.Services.Implementations
+namespace TakeRecipeEasily.Infrastructure.Services.RecipesRatings
 {
     public class RecipesRatingsQueryService : IRecipesRatingsQueryService
     {

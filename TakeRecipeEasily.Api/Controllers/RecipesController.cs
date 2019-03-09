@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Authentication.Attributes;
 using TakeRecipeEasily.Infrastructure.Busses;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes;
-using TakeRecipeEasily.Infrastructure.Services;
+using TakeRecipeEasily.Infrastructure.Filters;
+using TakeRecipeEasily.Infrastructure.Services.Recipes;
 
 namespace TakeRecipeEasily.Api.Controllers
 {
@@ -38,6 +39,10 @@ namespace TakeRecipeEasily.Api.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetRecipesAsync()
             => Ok(await _recipesQueryService.GetRecipesAsync());
+
+        [HttpGet("searcher")]
+        public async Task<IActionResult> GetRecipesAsync([FromQuery] RecipeFilters filters)
+            => Ok(await _recipesQueryService.GetRecipesAsync(filters));
 
         [Authorized]
         [HttpGet("users/current")]

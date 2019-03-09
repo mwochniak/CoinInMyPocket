@@ -2,6 +2,7 @@
 using TakeRecipeEasily.Core.Domain;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.Users;
 using TakeRecipeEasily.Infrastructure.Services;
+using TakeRecipeEasily.Infrastructure.Services.Users;
 using TakeRecipeEasily.Infrastructure.Validation.CommandModelsValidation;
 
 namespace TakeRecipeEasily.Infrastructure.Handlers.Users

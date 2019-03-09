@@ -9,7 +9,7 @@ using TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.RecipesIngredients;
 using TakeRecipeEasily.Infrastructure.SQL;
 
-namespace TakeRecipeEasily.Infrastructure.Services.Implementations
+namespace TakeRecipeEasily.Infrastructure.Services.Recipes
 {
     public class RecipesCommandService : IRecipesCommandService
     {

@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Authentication.Attributes;
 using TakeRecipeEasily.Infrastructure.Busses;
 using TakeRecipeEasily.Infrastructure.Contracts.Commands.RecipesRatings;
-using TakeRecipeEasily.Infrastructure.Services;
+using TakeRecipeEasily.Infrastructure.Services.RecipesRatings;
 
 namespace TakeRecipeEasily.Api.Controllers
 {

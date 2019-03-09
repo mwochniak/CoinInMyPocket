@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Users;
 
-namespace TakeRecipeEasily.Infrastructure.Services
+namespace TakeRecipeEasily.Infrastructure.Services.Users
 {
     public interface IUsersQueryService : IServisable
     {
