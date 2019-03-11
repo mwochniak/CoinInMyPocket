@@ -53,7 +53,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Recipes
             })
             .SingleOrDefaultAsync();
 
-            recipe.AverageRate = recipe.RecipeRatings.Select(rr => rr.Rate).CalculateAvegare();
+            recipe.AverageRate = recipe.RecipeRatings.Select(rr => rr.Rate).CalculateAvegareAccurateToTwoDecimalPlaces();
 
             return recipe;
         }
@@ -91,7 +91,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Recipes
             })
             .ToListAsync();
 
-            recipes.ForEach(r => r.AverageRate = r.RecipeRatings.Select(rr => rr.Rate).CalculateAvegare());
+            recipes.ForEach(r => r.AverageRate = r.RecipeRatings.Select(rr => rr.Rate).CalculateAvegareAccurateToTwoDecimalPlaces());
 
             return recipes;
         }
@@ -129,7 +129,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Recipes
             })
             .ToListAsync();
 
-            recipes.ForEach(r => r.AverageRate = r.RecipeRatings.Select(rr => rr.Rate).CalculateAvegare());
+            recipes.ForEach(r => r.AverageRate = r.RecipeRatings.Select(rr => rr.Rate).CalculateAvegareAccurateToTwoDecimalPlaces());
 
             return recipes;
         }
@@ -171,7 +171,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Recipes
                 })
                 .ToListAsync();
 
-            recipes.ForEach(r => r.AverageRate = r.RecipeRatings.Select(rr => rr.Rate).CalculateAvegare());
+            recipes.ForEach(r => r.AverageRate = r.RecipeRatings.Select(rr => rr.Rate).CalculateAvegareAccurateToTwoDecimalPlaces());
 
             return recipes;
         }

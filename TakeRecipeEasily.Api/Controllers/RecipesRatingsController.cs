@@ -32,7 +32,7 @@ namespace TakeRecipeEasily.Api.Controllers
             => await RunAsync(command);
 
         [Authorized]
-        [HttpGet("")]
+        [HttpGet("{recipeId}")]
         public async Task<IActionResult> GetRecipeRatingsAsync([FromRoute] Guid recipeId)
             => Ok(await _recipesRatingsQueryService.GetRecipeRatingsAsync(recipeId));
     }

@@ -16,6 +16,7 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes
         public ICollection<RecipeIngredientUpdateModel> RecipeIngredients { get; }
 
         public UpdateRecipeCommand(
+            Guid id,
             int difficultyLevel,
             int preparationTime,
             int? totalKcal,
@@ -25,7 +26,7 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes
             Guid userId,
             ICollection<RecipeIngredientUpdateModel> recipeIngredients)
         {
-            Id = Guid.NewGuid();
+            Id = id;
             DifficultyLevel = difficultyLevel;
             PreparationTime = preparationTime;
             TotalKcal = totalKcal;
