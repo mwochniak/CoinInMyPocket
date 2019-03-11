@@ -1,10 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Transactions;
 using TakeRecipeEasily.Core.Domain;
-using TakeRecipeEasily.Infrastructure.Contracts.Commands.Ingredients;
 using TakeRecipeEasily.Infrastructure.SQL;
 
 namespace TakeRecipeEasily.Infrastructure.Services.Ingredients
@@ -25,24 +21,5 @@ namespace TakeRecipeEasily.Infrastructure.Services.Ingredients
                 transactionScope.Complete();
             }
         }
-
-        public async Task UpdateIngredientAsync(IngredientUpdateModel ingredientUpdateModel)
-        {
-            using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            {
-                var ingredient = await GetIngredientAsync(ingredientUpdateModel.Id);
-
-                ingredient.Update(ingredientUpdateModel.Name, ingredientUpdateModel.IngredientCategoryId);
-                _dbContext.Ingredients.Update(ingredient);
-
-                await _dbContext.SaveChangesAsync();
-                transactionScope.Complete();
-            }
-        }
-
-        private async Task<Ingredient> GetIngredientAsync(Guid ingredientId)
-            => await _dbContext.Ingredients
-                .Select(i => Ingredient.Create(i.Id, i.Name, i.IngredientCategoryId))
-                .SingleOrDefaultAsync(i => i.Id == ingredientId);
     }
 }

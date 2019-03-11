@@ -32,8 +32,8 @@ namespace TakeRecipeEasily.Api.Controllers
 
         [Authorized]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRecipeAsync([FromBody] DeleteRecipeCommand command)
-            => await RunAsync(command);
+        public async Task<IActionResult> DeleteRecipeAsync([FromRoute] Guid id)
+            => await RunAsync(new DeleteRecipeCommand(id));
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRecipeAsync([FromRoute] Guid id)

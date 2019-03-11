@@ -21,23 +21,5 @@ namespace TakeRecipeEasily.Infrastructure.Validation.CommandModelsValidation
 
             result.Succeeded.ThrowIfFalse(ErrorType.BadRequest);
         }
-
-        internal static void UpdateIngredientCommandValidation(UpdateIngredientCommand command)
-        {
-            var result = ValitRules<UpdateIngredientCommand>
-                .Create()
-                .Ensure(c => c.Id, _ => _
-                    .IsNotEmpty())
-                .Ensure(c => c.Name, _ => _
-                    .Required()
-                    .MinLength(4)
-                    .MaxLength(100))
-                .Ensure(c => c.IngredientCategoryId, _ => _
-                    .IsNotEmpty())
-                .For(command)
-                .Validate();
-
-            result.Succeeded.ThrowIfFalse(ErrorType.BadRequest);
-        }
     }
 }

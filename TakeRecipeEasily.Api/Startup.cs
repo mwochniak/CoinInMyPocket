@@ -90,7 +90,6 @@ namespace TakeRecipeEasily.Api
                 .RespondToCommand<DeleteRecipeImagesCommand, DeleteRecipeImagesCommandHandler>()
                 .RespondToCommand<DeleteRecipeRatingCommand, DeleteRecipeRatingCommandHandler>()
                 .RespondToCommand<LoginCommand, LoginCommandHandler>()
-                .RespondToCommand<UpdateIngredientCommand, UpdateIngredientCommandHandler>()
                 .RespondToCommand<UpdateRecipeCommand, UpdateRecipeCommandHandler>()
                 .RespondToCommand<UpdateRecipeImagesCommand, UpdateRecipeImagesCommandHandler>()
                 .RespondToCommand<UpdateRecipeRatingCommand, UpdateRecipeRatingCommandHandler>()

@@ -4,7 +4,7 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.RecipesRatings
 {
     public class UpdateRecipeRatingCommand : AuthenticatedCommand
     {
-        public Guid Id { get; }
+        public Guid Id { get; set; }
         public Guid RecipeId { get; }
         public int Rate { get; }
         public string Comment { get; }

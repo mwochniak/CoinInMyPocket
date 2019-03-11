@@ -22,13 +22,16 @@ namespace TakeRecipeEasily.Api.Controllers
             => await RunAsync(command);
 
         [Authorized]
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRecipeImagesAsync([FromBody] UpdateRecipeImagesCommand command)
-            => await RunAsync(command);
+        [HttpPut("{recipeId}")]
+        public async Task<IActionResult> UpdateRecipeImagesAsync([FromRoute] Guid recipeId, [FromBody] UpdateRecipeImagesCommand command)
+        {
+            command.RecipeId = recipeId;
+            return await RunAsync(command);
+        }
 
         [Authorized]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRecipeImagesAsync([FromBody] DeleteRecipeImagesCommand command)
+        [HttpDelete("{recipeId}")]
+        public async Task<IActionResult> DeleteRecipeImagesAsync([FromRoute] Guid recipeId, [FromBody] DeleteRecipeImagesCommand command)
             => await RunAsync(command);
 
         [HttpGet("{recipeId}")]
