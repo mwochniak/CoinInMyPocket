@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
 using TakeRecipeEasily.Infrastructure.Authentication.Middleware;
 using TakeRecipeEasily.Infrastructure.Authentication.Settings;
@@ -53,6 +54,15 @@ namespace TakeRecipeEasily.Api
         {
             services.AddCors();
             services.AddMvc();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "TakeRecipeEasily.Api",
+                    Contact = new Contact() { Name = "Mateusz Wochniak", Email = "mateuszwochniak010@gmail.com" }
+                });
+            });
             services.AddOptions();
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetSettings<DatabaseSettings>().ConnectionString));
 
@@ -112,6 +122,9 @@ namespace TakeRecipeEasily.Api
             app.UseTakeRecipeEasilyExceptions();
             app.UseJwtAuthentication();
             app.UseMvc();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TakeRecipeEasily.Api"));
         }
     }
 }
