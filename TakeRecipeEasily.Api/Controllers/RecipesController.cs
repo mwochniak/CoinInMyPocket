@@ -24,8 +24,11 @@ namespace TakeRecipeEasily.Api.Controllers
 
         [Authorized]
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRecipeAsync([FromBody] UpdateRecipeCommand command)
-            => await RunAsync(command, _ => _recipesQueryService.GetRecipeAsync(command.Id));
+        public async Task<IActionResult> UpdateRecipeAsync([FromRoute] Guid id, [FromBody] UpdateRecipeCommand command)
+        {
+            command.Id = id;
+            return await RunAsync(command, _ => _recipesQueryService.GetRecipeAsync(id));
+        }
 
         [Authorized]
         [HttpDelete("{id}")]
