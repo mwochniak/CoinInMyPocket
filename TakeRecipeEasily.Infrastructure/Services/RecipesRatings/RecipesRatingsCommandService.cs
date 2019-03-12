@@ -42,7 +42,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.RecipesRatings
             using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 var recipeRating = await GetAsync(recipeRatingUpdateModel.Id);
-                recipeRating.Update(recipeRating.Rate, recipeRating.Comment);
+                recipeRating.Update(recipeRatingUpdateModel.Rate, recipeRatingUpdateModel.Comment);
                 _dbContext.RecipesRatings.Update(recipeRating);
                 await _dbContext.SaveChangesAsync();
                 transactionScope.Complete();

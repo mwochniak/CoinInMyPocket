@@ -13,5 +13,7 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.RecipesImages
             RecipeId = recipeId;
             RecipeImages = recipeImages;
         }
+
+        public void SetRecipeId(Guid recipeId) => RecipeId = recipeId;
     }
 }

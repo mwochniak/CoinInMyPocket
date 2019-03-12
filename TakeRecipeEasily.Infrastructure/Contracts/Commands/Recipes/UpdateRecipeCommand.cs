@@ -6,7 +6,7 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes
 {
     public class UpdateRecipeCommand : AuthenticatedCommand
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; private set; }
         public int DifficultyLevel { get; }
         public int PreparationTime { get; }
         public int? TotalKcal { get; }
@@ -36,5 +36,7 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.Commands.Recipes
             UserId = userId;
             RecipeIngredients = recipeIngredients;
         }
+
+        public void SetCommandId(Guid id) => Id = id;
     }
 }

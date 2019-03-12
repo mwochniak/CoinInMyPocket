@@ -25,7 +25,7 @@ namespace TakeRecipeEasily.Api.Controllers
         [HttpPut("{recipeId}")]
         public async Task<IActionResult> UpdateRecipeImagesAsync([FromRoute] Guid recipeId, [FromBody] UpdateRecipeImagesCommand command)
         {
-            command.RecipeId = recipeId;
+            command.SetRecipeId(recipeId);
             return await RunAsync(command);
         }
 
