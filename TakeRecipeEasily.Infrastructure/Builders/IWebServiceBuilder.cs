@@ -5,17 +5,17 @@ using TakeRecipeEasily.Infrastructure.Contracts.Events;
 
 namespace TakeRecipeEasily.Infrastructure.Builders
 {
-    public interface IMVCWebServiceBuilder : IBuilder<IContainer>
+    public interface IWebServiceBuilder : IBuilder<IContainer>
     {
-        IMVCWebServiceBuilder WithCommandsBus();
+        IWebServiceBuilder WithCommandsBus();
 
-        IMVCWebServiceBuilder WithEventsBus();
+        IWebServiceBuilder WithEventsBus();
 
-        IMVCWebServiceBuilder SubscribeToEvent<TEvent, THandler>()
+        IWebServiceBuilder SubscribeToEvent<TEvent, THandler>()
             where TEvent : IEvent
             where THandler : IEventHandler<TEvent>;
 
-        IMVCWebServiceBuilder RespondToCommand<TCommand, THandler>()
+        IWebServiceBuilder RespondToCommand<TCommand, THandler>()
             where TCommand : ICommand
             where THandler : ICommandHandler<TCommand>;
     }

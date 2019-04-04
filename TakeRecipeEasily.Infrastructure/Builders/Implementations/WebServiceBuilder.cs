@@ -9,18 +9,18 @@ using System.Collections.Generic;
 
 namespace TakeRecipeEasily.Infrastructure.Builders.Implementations
 {
-    public class MVCWebServiceBuilder : IMVCWebServiceBuilder
+    public class WebServiceBuilder : IWebServiceBuilder
     {
         private readonly IConfiguration _configuration;
         private readonly ContainerBuilder _containerBuilder;
 
-        public MVCWebServiceBuilder(IConfiguration configuration, ContainerBuilder containerBuilder)
+        public WebServiceBuilder(IConfiguration configuration, ContainerBuilder containerBuilder)
         {
             _configuration = configuration;
             _containerBuilder = containerBuilder;
         }
 
-        public static IMVCWebServiceBuilder Create(
+        public static IWebServiceBuilder Create(
             IServiceCollection services,
             IConfiguration configuration,
             Action<ContainerBuilder> builderSteps = null)
@@ -30,10 +30,10 @@ namespace TakeRecipeEasily.Infrastructure.Builders.Implementations
             containerBuilder.Populate(services);
 
             builderSteps?.Invoke(containerBuilder);
-            return new MVCWebServiceBuilder(configuration, containerBuilder);
+            return new WebServiceBuilder(configuration, containerBuilder);
         }
 
-        public IMVCWebServiceBuilder WithEventsBus()
+        public IWebServiceBuilder WithEventsBus()
         {
             _containerBuilder.Register<Func<Type, IEnumerable<IEventHandler>>>(c =>
             {
@@ -50,7 +50,7 @@ namespace TakeRecipeEasily.Infrastructure.Builders.Implementations
             return this;
         }
 
-        public IMVCWebServiceBuilder WithCommandsBus()
+        public IWebServiceBuilder WithCommandsBus()
         {
             _containerBuilder.Register<Func<Type, ICommandHandler>>(c =>
             {
@@ -66,13 +66,13 @@ namespace TakeRecipeEasily.Infrastructure.Builders.Implementations
             return this;
         }
 
-        IMVCWebServiceBuilder IMVCWebServiceBuilder.RespondToCommand<TCommand, THandler>()
+        IWebServiceBuilder IWebServiceBuilder.RespondToCommand<TCommand, THandler>()
         {
             _containerBuilder.RegisterType<THandler>().As<ICommandHandler<TCommand>>();
             return this;
         }
 
-        IMVCWebServiceBuilder IMVCWebServiceBuilder.SubscribeToEvent<TEvent, THandler>()
+        IWebServiceBuilder IWebServiceBuilder.SubscribeToEvent<TEvent, THandler>()
         {
             _containerBuilder.RegisterType<THandler>().As<IEventHandler<TEvent>>();
             return this;

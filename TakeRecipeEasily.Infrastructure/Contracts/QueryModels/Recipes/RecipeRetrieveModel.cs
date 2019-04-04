@@ -17,7 +17,7 @@ namespace TakeRecipeEasily.Infrastructure.Contracts.QueryModels.Recipes
         public string Name { get; set; }
         public string Summary { get; set; }
         public string UserFullName { get; set; }
-        public IEnumerable<Guid> RecipeImages { get; set; }
+        public IEnumerable<RecipeImagePartialModel> RecipeImages { get; set; }
         public IEnumerable<RecipeIngredientRetrieveModel> RecipeIngredients { get; set; }
         public IEnumerable<RecipeRatingRetrieveModel> RecipeRatings { get; set; }
     }

@@ -66,7 +66,7 @@ namespace TakeRecipeEasily.Api
             services.AddOptions();
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetSettings<DatabaseSettings>().ConnectionString));
 
-            var applicationContainer = MVCWebServiceBuilder
+            var applicationContainer = WebServiceBuilder
                 .Create(services, Configuration, builder =>
                 {
                     builder.RegisterInstance(Configuration.GetSettings<AuthSettings>()).SingleInstance();
@@ -101,7 +101,6 @@ namespace TakeRecipeEasily.Api
                 .RespondToCommand<DeleteRecipeRatingCommand, DeleteRecipeRatingCommandHandler>()
                 .RespondToCommand<LoginCommand, LoginCommandHandler>()
                 .RespondToCommand<UpdateRecipeCommand, UpdateRecipeCommandHandler>()
-                .RespondToCommand<UpdateRecipeImagesCommand, UpdateRecipeImagesCommandHandler>()
                 .RespondToCommand<UpdateRecipeRatingCommand, UpdateRecipeRatingCommandHandler>()
                 .WithCommandsBus()
                 .WithEventsBus()

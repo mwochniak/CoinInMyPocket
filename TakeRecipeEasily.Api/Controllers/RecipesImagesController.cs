@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using TakeRecipeEasily.Infrastructure.Authentication.Attributes;
 using TakeRecipeEasily.Infrastructure.Busses;
@@ -22,17 +23,9 @@ namespace TakeRecipeEasily.Api.Controllers
             => await RunAsync(command);
 
         [Authorized]
-        [HttpPut("{recipeId}")]
-        public async Task<IActionResult> UpdateRecipeImagesAsync([FromRoute] Guid recipeId, [FromBody] UpdateRecipeImagesCommand command)
-        {
-            command.SetRecipeId(recipeId);
-            return await RunAsync(command);
-        }
-
-        [Authorized]
-        [HttpDelete("{recipeId}")]
-        public async Task<IActionResult> DeleteRecipeImagesAsync([FromRoute] Guid recipeId, [FromBody] DeleteRecipeImagesCommand command)
-            => await RunAsync(command);
+        [HttpDelete("")]
+        public async Task<IActionResult> DeleteRecipeImagesAsync([FromQuery] IEnumerable<Guid> ids)
+            => await RunAsync(new DeleteRecipeImagesCommand(ids));
 
         [HttpGet("{recipeId}")]
         public async Task<IActionResult> GetRecipeImageDefaultAsync([FromRoute] Guid recipeId)

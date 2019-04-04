@@ -30,7 +30,11 @@ namespace TakeRecipeEasily.Infrastructure.Services.Recipes
                 Description = r.Description,
                 Name = r.Name,
                 Summary = r.Summary,
-                RecipeImages = r.RecipeImages.Select(ri => ri.Id),
+                RecipeImages = r.RecipeImages.Select(ri => new RecipeImagePartialModel()
+                {
+                    Id = ri.Id,
+                    IsDefault = ri.IsDefault
+                }),
                 RecipeIngredients = r.RecipeIngredients.Select(ri => new RecipeIngredientRetrieveModel()
                 {
                     IngredientId = ri.Ingredient.Id,
@@ -69,7 +73,11 @@ namespace TakeRecipeEasily.Infrastructure.Services.Recipes
                 Description = r.Description,
                 Name = r.Name,
                 Summary = r.Summary,
-                RecipeImages = r.RecipeImages.Select(ri => ri.Id),
+                RecipeImages = r.RecipeImages.Select(ri => new RecipeImagePartialModel()
+                {
+                    Id = ri.Id,
+                    IsDefault = ri.IsDefault
+                }),
                 RecipeIngredients = r.RecipeIngredients.Select(ri => new RecipeIngredientRetrieveModel()
                 {
                     IngredientId = ri.Ingredient.Id,
@@ -107,7 +115,11 @@ namespace TakeRecipeEasily.Infrastructure.Services.Recipes
                 Description = r.Description,
                 Name = r.Name,
                 Summary = r.Summary,
-                RecipeImages = r.RecipeImages.Select(ri => ri.Id),
+                RecipeImages = r.RecipeImages.Select(ri => new RecipeImagePartialModel()
+                {
+                    Id = ri.Id,
+                    IsDefault = ri.IsDefault
+                }),
                 RecipeIngredients = r.RecipeIngredients.Select(ri => new RecipeIngredientRetrieveModel()
                 {
                     IngredientId = ri.Ingredient.Id,
@@ -149,7 +161,11 @@ namespace TakeRecipeEasily.Infrastructure.Services.Recipes
                     Description = r.Description,
                     Name = r.Name,
                     Summary = r.Summary,
-                    RecipeImages = r.RecipeImages.Select(ri => ri.Id),
+                    RecipeImages = r.RecipeImages.Select(ri => new RecipeImagePartialModel()
+                    {
+                        Id = ri.Id,
+                        IsDefault = ri.IsDefault
+                    }),
                     RecipeIngredients = r.RecipeIngredients.Select(ri => new RecipeIngredientRetrieveModel()
                     {
                         IngredientId = ri.Ingredient.Id,

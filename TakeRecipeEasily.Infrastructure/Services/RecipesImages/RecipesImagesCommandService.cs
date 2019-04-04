@@ -27,25 +27,12 @@ namespace TakeRecipeEasily.Infrastructure.Services.RecipesImages
             }
         }
 
-
         public async Task DeleteRecipeImagesAsync(IEnumerable<Guid> recipeImagesIds)
         {
             using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 var recipeImages = await GetAsync(recipeImagesIds);
                 _dbContext.RecipesImages.RemoveRange(recipeImages);
-                await _dbContext.SaveChangesAsync();
-                transactionScope.Complete();
-            }
-        }
-
-        public async Task UpdateRecipeImagesAsync(Guid recipeId, IEnumerable<RecipeImageUpdateModel> recipeImageUpdateModels)
-        {
-            using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
-            {
-                var recipeImages = await GetAsync(recipeImageUpdateModels.Select(ri => ri.Id));
-                recipeImages.ToList().ForEach(ri => ri.Update(isDefault: recipeImageUpdateModels.SingleOrDefault(um => um.Id == ri.Id).IsDefault, content: recipeImageUpdateModels.SingleOrDefault(um => um.Id == ri.Id).Content, contentType: recipeImageUpdateModels.SingleOrDefault(um => um.Id == ri.Id).ContentType));
-                _dbContext.UpdateRange(recipeImages);
                 await _dbContext.SaveChangesAsync();
                 transactionScope.Complete();
             }

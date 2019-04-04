@@ -13,7 +13,9 @@ namespace TakeRecipeEasily.Api.Controllers
     {
         private readonly IRecipesRatingsQueryService _recipesRatingsQueryService;
 
-        public RecipesRatingsController(ICommandsBus commandsBus, IRecipesRatingsQueryService recipesRatingsQueryService) : base(commandsBus)
+        public RecipesRatingsController(
+            ICommandsBus commandsBus,
+            IRecipesRatingsQueryService recipesRatingsQueryService) : base(commandsBus)
             => _recipesRatingsQueryService = recipesRatingsQueryService;
 
         [Authorized]
@@ -34,7 +36,6 @@ namespace TakeRecipeEasily.Api.Controllers
         public async Task<IActionResult> DeleteRecipeRatingAsync([FromRoute] Guid id)
             => await RunAsync(new DeleteRecipeRatingCommand(id));
 
-        [Authorized]
         [HttpGet("{recipeId}")]
         public async Task<IActionResult> GetRecipeRatingsAsync([FromRoute] Guid recipeId)
             => Ok(await _recipesRatingsQueryService.GetRecipeRatingsAsync(recipeId));
