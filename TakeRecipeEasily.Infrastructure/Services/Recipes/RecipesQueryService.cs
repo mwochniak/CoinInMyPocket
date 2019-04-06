@@ -149,9 +149,7 @@ namespace TakeRecipeEasily.Infrastructure.Services.Recipes
         public async Task<IEnumerable<RecipeSearcherModel>> GetRecipesAsync(RecipeFilters recipeFilters)
         {
             var recipes = await _dbContext.Recipes
-                .Where(r => r.Name.Contains(recipeFilters.Phrase)
-                         && r.PreparationTime > recipeFilters.MinDifficultyLevel
-                         && r.PreparationTime < recipeFilters.MaxDifficultyLevel)
+                .Where(r => r.Name.Contains(recipeFilters.Phrase) || r.RecipeIngredients.Any(ri => ri.Ingredient.Name.Contains(recipeFilters.Phrase)))
                 .Select(r => new RecipeSearcherModel()
                 {
                     Id = r.Id,
