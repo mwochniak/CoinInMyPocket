@@ -12,6 +12,6 @@ namespace TakeRecipeEasily.Infrastructure.Services.Recipes
 
         Task<IEnumerable<RecipeRetrieveModel>> GetRecipesAsync();
         Task<IEnumerable<RecipeRetrieveModel>> GetUserRecipesAsync(Guid userId);
-        Task<IEnumerable<RecipeRetrieveModel>> GetRecipesAsync(RecipeFilters recipeFilters);
+        Task<IEnumerable<RecipeSearcherModel>> GetRecipesAsync(RecipeFilters recipeFilters);
     }
 }

@@ -31,8 +31,8 @@ namespace TakeRecipeEasily.Api.Controllers
         public async Task<IActionResult> GetIngredientsAsync()
            => Ok(await _ingredientQueryService.GetIngredientsAsync());
 
-        [HttpGet("{phrase}")]
-        public async Task<IActionResult> GetIngredientsAsync([FromRoute] string phrase)
+        [HttpGet("searcher")]
+        public async Task<IActionResult> GetIngredientsAsync([FromQuery] string phrase)
             => Ok(await _ingredientQueryService.GetIngredientsAsync(phrase));
     }
 }
